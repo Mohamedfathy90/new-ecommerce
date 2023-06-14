@@ -81,14 +81,12 @@ class AdminController extends Controller
 
     if(request()->has('image')){
         $image_name = 'img_'.time().'.'.request('image')->getclientoriginalextension();
+        $image_url = "/profile_images/admin/";
+        $credentials['image'] = "/storage/".$image_url.$image_name;
+        request()->file('image')->storeAs($image_url,$image_name);
+        auth()->user()->update($credentials);
     }
-
-
-
-
-    auth()->user()->update($credentials);
-    }
-    
+}
     
     public function updatepassword(){
     $credentials = request()->validate([
@@ -100,6 +98,7 @@ class AdminController extends Controller
     ]);
     auth()->Logout();
     return redirect('/admin/login');
-    
+} 
+
 }
-}
+
