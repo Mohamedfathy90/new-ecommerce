@@ -7,6 +7,9 @@ use Illuminate\Auth\Events\Logout;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Backtrace\File;
+
+use function PHPUnit\Framework\fileExists;
 
 class AdminController extends Controller
 {
@@ -80,25 +83,32 @@ class AdminController extends Controller
     $credentials['phone']=request('phone');
 
     if(request()->has('image')){
+        if(fileExists(public_path(auth()->user()->image))){
+            unlink(public_path(auth()->user()->image));
+        }
         $image_name = 'img_'.time().'.'.request('image')->getclientoriginalextension();
-        $image_url = "/profile_images/admin/";
-        $credentials['image'] = "/storage/".$image_url.$image_name;
+        $image_url = "profile_images/admin/";
         request()->file('image')->storeAs($image_url,$image_name);
-        auth()->user()->update($credentials);
+        $credentials['image'] = "/storage/".$image_url.$image_name;
     }
-}
+    auth()->user()->update($credentials);
+    toastr()->success('Profile updated successfully');
+    return redirect('/admin/profile');
+    }
+    
     
     public function updatepassword(){
     $credentials = request()->validate([
         'current_password' => ['required','current_password'] ,
-        'password' => ['required','confirmed']
+        'password'         => ['required','confirmed']
     ]);
     auth()->user()->update([
         'password' => Hash::make($credentials['password']) 
     ]);
     auth()->Logout();
+    toastr()->success('Password updated successfully');
     return redirect('/admin/login');
-} 
+    } 
 
 }
 

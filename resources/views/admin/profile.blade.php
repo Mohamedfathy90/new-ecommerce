@@ -29,8 +29,9 @@
                       <h4>Personal Information</h4>
                     </div>
                     <div class="card-body">
-                    <img src="{{auth()->user()->image}}" width="150" height="150">     
-                        
+                    <img src= " @php echo (auth()->user()->image)?: '/storage/nophoto.jpg' @endphp " 
+                    width="150" height="150">     
+                    
                         <div class="row mt-3">                               
                         <div class="form-group col-md-6 col-12">
                             <label>Name</label>
