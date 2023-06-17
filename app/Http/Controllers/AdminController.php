@@ -3,16 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\user;
+use App\Traits\updatepassword;
 use Illuminate\Auth\Events\Logout;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Spatie\Backtrace\File;
+use App\Traits\updateprofile;
 
 use function PHPUnit\Framework\fileExists;
 
 class AdminController extends Controller
 {
+   
+   use updateprofile;
+   use updatepassword;
+   
+   
     /**
      * Display a listing of the resource.
      */
@@ -76,39 +82,24 @@ class AdminController extends Controller
 
     
     public function updateprofile(){
-    $credentials= request()->validate([
-        'name'   =>['required','min:4'],
-        'email'  =>['email','required','unique:users,email,'.Auth::id()]
-    ]);    
-    $credentials['phone']=request('phone');
+    
+    $user = $this->updateprofiledata(Auth::user()->role);
 
-    if(request()->has('image')){
-        if(fileExists(public_path(auth()->user()->image))){
-            unlink(public_path(auth()->user()->image));
-        }
-        $image_name = 'img_'.time().'.'.request('image')->getclientoriginalextension();
-        $image_url = "profile_images/admin/";
-        request()->file('image')->storeAs($image_url,$image_name);
-        $credentials['image'] = "/storage/".$image_url.$image_name;
-    }
-    auth()->user()->update($credentials);
+    if($user)
     toastr()->success('Profile updated successfully');
     return redirect('/admin/profile');
     }
     
     
+   
     public function updatepassword(){
-    $credentials = request()->validate([
-        'current_password' => ['required','current_password'] ,
-        'password'         => ['required','confirmed']
-    ]);
-    auth()->user()->update([
-        'password' => Hash::make($credentials['password']) 
-    ]);
-    auth()->Logout();
-    toastr()->success('Password updated successfully');
-    return redirect('/admin/login');
-    } 
+        $user = $this->updateprofilepassword();
+        if($user)
+        auth()->Logout();
+        toastr()->success('Password updated successfully');
+        return redirect('/admin/login');
+        } 
+    
 
 }
 

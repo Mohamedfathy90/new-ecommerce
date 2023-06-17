@@ -310,7 +310,7 @@
                             <li><a href="contact.html">contact</a></li>
                             <li><a href="/user/dashboard">my account</a></li>
                             <li>@guest
-                                <a href="/login">login</a></li>
+                                <a href="/user/login">login</a></li>
                                 @else
                                 
                                 <form method="POST" action="{{ route('logout') }}">

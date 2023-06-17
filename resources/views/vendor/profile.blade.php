@@ -1,6 +1,6 @@
 @extends('front.layouts.dashboard')
 
-@section('title' , 'User Profile')
+@section('title' , 'Vendor Profile')
 
 @section ('content')
       <div class="row">
@@ -9,7 +9,7 @@
             <h3><i class="far fa-user"></i> profile</h3>
             <div class="wsus__dashboard_profile">
               <div class="wsus__dash_pro_area">
-                <h4>basic information</h4>
+                <h4>Basic information</h4>
                 
                 <form action="/user/updateprofile" method="post" enctype="multipart/form-data">
                     @csrf

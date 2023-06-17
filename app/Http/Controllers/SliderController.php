@@ -2,22 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Slider;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\Traits\updatepassword;
-use App\Traits\updateprofile;
 
-class VendorController extends Controller
+class SliderController extends Controller
 {
-    use updateprofile;
-    use updatepassword;
-   
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view ('vendor.dashboard');
+        return view('admin.slider.index');
     }
 
     /**
@@ -25,7 +20,7 @@ class VendorController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.slider.create');
     }
 
     /**
@@ -33,7 +28,22 @@ class VendorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $credentials = $request->validate([
+            'banner' => ['required' , 'image' , 'max:2048'] ,
+            'type'   => ['required' , 'string'] , 
+            'title'  => ['required' , 'string'] , 
+            'price'  => ['required','decimal:0,2'] , 
+            'url'    => ['required'] ,
+            'order'  => ['required' , 'decimal:0'],
+        ]);
+
+        $image_name = "img_".time().'.'.$request->banner->getclientoriginalextension();
+        $image_url  = "slider_images";
+        $request->file('banner')->storeAs($image_url,$image_name); 
+        $credentials['banner']  = "/storage/".$image_url.'/'.$image_name ;
+        $credentials['status'] = $request->status ;
+        Slider::create($credentials);
+
     }
 
     /**
@@ -67,26 +77,4 @@ class VendorController extends Controller
     {
         //
     }
-
-    public function profile(){
-        return view('vendor.profile');
-    }
-
-    public function updateprofile(){
-    
-        $user = $this->updateprofiledata(Auth::user()->role);
-    
-        if($user)
-        toastr()->success('Profile updated successfully');
-        return redirect('/vendor/profile');
-        }
-
-    public function updatepassword(){
-        $user = $this->updateprofilepassword();
-        if($user)
-        auth()->Logout();
-        toastr()->success('Password updated successfully');
-        return redirect('/vendor/login');
-        } 
-
 }

@@ -35,7 +35,7 @@
                         <div class="row mt-3">                               
                         <div class="form-group col-md-6 col-12">
                             <label>Name</label>
-                            <input type="text" name ='name' class="form-control" value="{{auth()->user()->name}}" required="">
+                            <input type="text" name ='name' class="form-control" value="{{auth()->user()->name}}" >
                             @error('name')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -43,7 +43,7 @@
                           
                           <div class="form-group col-md-6 col-12">
                             <label>Username</label>
-                            <input type="text" class="form-control" value="{{auth()->user()->username}}" disabled>
+                            <input type="text" class="form-control" name="username" value="{{auth()->user()->username}}">
                           </div>
                         </div>
                         
@@ -51,7 +51,7 @@
                           
                           <div class="form-group col-md-7 col-12">
                             <label>Email</label>
-                            <input type="email" name='email' class="form-control" value="{{auth()->user()->email}}" required="">
+                            <input type="email" name='email' class="form-control" value="{{auth()->user()->email}}" >
                             @error('email')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
