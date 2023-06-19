@@ -308,11 +308,19 @@
                         </ul>
                         <ul class="wsus__menu_item wsus__menu_item_right">
                             <li><a href="contact.html">contact</a></li>
+                            
+                            @auth
+                            @if(auth()->user()->role === 'admin')
+                            <li><a href="/admin/dashboard">my account</a></li>
+                            @elseif(auth()->user()->role === 'vendor')
+                            <li><a href="/vendor/dashboard">my account</a></li>
+                            @else
                             <li><a href="/user/dashboard">my account</a></li>
+                            @endif
+                            @endauth
                             <li>@guest
                                 <a href="/user/login">login</a></li>
                                 @else
-                                
                                 <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <a href="/logout" onclick="event.preventDefault();this.closest('form').submit();">

@@ -5,10 +5,10 @@ namespace App\Traits;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
-use function PHPUnit\Framework\fileExists;
 
 trait updateprofile {
     
+    use image;
     public function updateprofiledata($role){
         $credentials= request()->validate([
             'name'       =>['required','min:4'],
@@ -21,14 +21,12 @@ trait updateprofile {
             if(File::exists(public_path(auth()->user()->image))){
                 File::delete(public_path(auth()->user()->image));
             }
-            $image_name = 'img_'.time().'.'.request('image')->getclientoriginalextension();
-            $image_url = "profile_images/".$role."/";
-            request()->file('image')->storeAs($image_url,$image_name);
-            $credentials['image'] = "/storage/".$image_url.$image_name;
+            $credentials['image']= $this->saveimage("profile_images/".$role."/");
         }
         
-        return auth()->user()->update($credentials);
-        
+        $user = auth()->user()->update($credentials);
+
+        return $user ;
         
     } 
 }

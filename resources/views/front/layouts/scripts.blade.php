@@ -1,7 +1,5 @@
 
 
-
-
     <!--jquery library js-->
     <script src="/frontend/js/jquery-3.6.0.min.js"></script>
     <!--bootstrap js-->
@@ -39,3 +37,5 @@
 
     <!--main/custom js-->
     <script src="/frontend/js/main.js"></script>
+
+    

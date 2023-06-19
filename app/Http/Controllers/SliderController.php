@@ -2,17 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\SlidersDataTable;
 use App\Models\Slider;
+use App\Traits\image;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
+
 
 class SliderController extends Controller
 {
+    use image;
+    
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(SlidersDataTable $dataTable)
     {
-        return view('admin.slider.index');
+        return $dataTable->render('admin.slider.index');
     }
 
     /**
@@ -29,7 +35,7 @@ class SliderController extends Controller
     public function store(Request $request)
     {
         $credentials = $request->validate([
-            'banner' => ['required' , 'image' , 'max:2048'] ,
+            'image'  => ['required' , 'image' , 'max:2048'] ,
             'type'   => ['required' , 'string'] , 
             'title'  => ['required' , 'string'] , 
             'price'  => ['required','decimal:0,2'] , 
@@ -37,12 +43,11 @@ class SliderController extends Controller
             'order'  => ['required' , 'decimal:0'],
         ]);
 
-        $image_name = "img_".time().'.'.$request->banner->getclientoriginalextension();
-        $image_url  = "slider_images";
-        $request->file('banner')->storeAs($image_url,$image_name); 
-        $credentials['banner']  = "/storage/".$image_url.'/'.$image_name ;
+        $credentials['image']=$this->saveimage('slider_images');
         $credentials['status'] = $request->status ;
         Slider::create($credentials);
+        toastr()->success("Slider added successfully");
+        return redirect('/admin/slider');
 
     }
 
@@ -59,7 +64,7 @@ class SliderController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('admin.slider.edit',['slider'=>Slider::findorfail($id)]);
     }
 
     /**
@@ -67,7 +72,28 @@ class SliderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $Slider = Slider::findorfail($id);
+        
+        $credentials = $request->validate([
+            'image'  => ['image' , 'max:2048'] ,
+            'type'   => ['required' , 'string'] , 
+            'title'  => ['required' , 'string'] , 
+            'price'  => ['required','decimal:0,2'] , 
+            'url'    => ['required'] ,
+            'order'  => ['required' , 'decimal:0'],
+        ]);
+        $credentials['status'] = $request->status ;
+        
+        if($request->has('image')){
+            if(File::exists(public_path($Slider->image))){
+                File::delete(public_path($Slider->image));
+            }
+        $credentials['image']=$this->saveimage('slider_images'); 
+        }
+        $Slider->update($credentials);
+        toastr()->success("Slider updated successfully");
+        return redirect('/admin/slider');
+       
     }
 
     /**

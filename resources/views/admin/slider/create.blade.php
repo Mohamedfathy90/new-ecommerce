@@ -23,8 +23,8 @@
                     @csrf
                     <div class="form-group">
                         <label>Banner</label>
-                        <input type="file" class='form-control' name="banner">
-                        @error('banner')
+                        <input type="file" class='form-control' name="image">
+                        @error('image')
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
