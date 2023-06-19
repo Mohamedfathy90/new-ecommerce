@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\SlidersDataTable;
+
 use App\Models\Slider;
 use App\Traits\image;
-use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
-
+use Yajra\DataTables\Facades\DataTables;
 
 class SliderController extends Controller
 {
@@ -16,9 +15,20 @@ class SliderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(SlidersDataTable $dataTable)
+    public function index()
     {
-        return $dataTable->render('admin.slider.index');
+ 
+        if(request()->ajax()) {
+            return datatables()->of(Slider::select('*'))
+            ->addColumn('action', function($row){
+            $actionBtn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm show_confirm">Delete</a>';
+            return $actionBtn;
+            })
+            ->rawColumns(['action'])
+            ->addIndexColumn()
+            ->make(true);
+            } 
+      return view('admin.slider.index');
     }
 
     /**
@@ -85,9 +95,7 @@ class SliderController extends Controller
         $credentials['status'] = $request->status ;
         
         if($request->has('image')){
-            if(File::exists(public_path($Slider->image))){
-                File::delete(public_path($Slider->image));
-            }
+        $this->deleteimage($Slider->image);
         $credentials['image']=$this->saveimage('slider_images'); 
         }
         $Slider->update($credentials);
@@ -101,6 +109,8 @@ class SliderController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $this->deleteimage(Slider::find($id)->image);
+        Slider::destroy($id);
+        return response(['status'=>'success' , 'message'=>"Slider has been deleted!"]);
     }
 }

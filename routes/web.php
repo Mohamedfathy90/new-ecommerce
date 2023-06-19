@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Models\Slider;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('front.home');
+    return view('front.home',['sliders'=>Slider::where('status','active')->orderby('order')->get()]);
 });
 
 Route::get('/user/dashboard', function () {

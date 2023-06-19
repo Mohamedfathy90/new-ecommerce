@@ -18,9 +18,7 @@ trait updateprofile {
         $credentials['phone']=request('phone');
      
         if(request()->has('image')){
-            if(File::exists(public_path(auth()->user()->image))){
-                File::delete(public_path(auth()->user()->image));
-            }
+            $this->deleteimage(auth()->user()->image);
             $credentials['image']= $this->saveimage("profile_images/".$role."/");
         }
         

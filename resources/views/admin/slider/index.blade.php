@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('title',"Homepage Slider")
+@section('title',"Homepage Sliders")
 
 @section('content')
 <div class="main-content">
@@ -24,10 +24,22 @@
                     </div>
                   </div>
                   <div class="card-body">
-                  {{ $dataTable->table() }}
+                  <table class="table table-bordered" id="datatable-crud">
+                    <thead>
+                    <tr>
+                    <th>No.</th>
+                    <th>Type</th>
+                    <th>Title</th>
+                    <th>Price</th>
+                    <th>Order</th>
+                    <th>status</th>
+                    <th>url</th>
+                    <th>Action</th>
+                    </tr>
+                    </thead>
+                    </table>
                   </div>
-                  <div class="card-footer text-right">
-                    
+                  <div class="card-footer text-right"> 
                   </div>
                 </div>
               </div>
@@ -40,7 +52,5 @@
 
 @endsection
 
-@push('scripts')
-    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
-@endpush
+
 
