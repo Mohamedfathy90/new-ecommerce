@@ -23,6 +23,13 @@
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{asset('backend')}}/assets/css/style.css">
   <link rel="stylesheet" href="{{asset('backend')}}/assets/css/components.css">
+
+
+
+
+<!-- Bootstrap-Iconpicker -->
+<link rel="stylesheet" href="dist/css/bootstrap-iconpicker.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-iconpicker/1.10.0/css/bootstrap-iconpicker.min.css">
   
 <!-- Start GA -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>

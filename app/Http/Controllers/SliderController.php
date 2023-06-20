@@ -17,14 +17,26 @@ class SliderController extends Controller
      */
     public function index()
     {
- 
         if(request()->ajax()) {
             return datatables()->of(Slider::select('*'))
+            
+            ->addColumn('image', function($row){
+               return  "<img src='".$row['image']."' width='100px'>";
+                })
+            
             ->addColumn('action', function($row){
-            $actionBtn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm show_confirm">Delete</a>';
+            $actionBtn = '<a href= "/admin/slider/'.$row['id'].'/edit"   class="edit btn btn-success">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger show_confirm" data-url="/admin/slider/'.$row['id'].'">Delete</a>';
             return $actionBtn;
             })
-            ->rawColumns(['action'])
+            
+            ->addColumn('status', function($row){
+                if($row['status']==='active')
+                return '<span class="badge badge-success">Active</span>';
+                if($row['status']==='inactive')
+                return '<span class="badge badge-danger">Inactive</span>';
+                })
+            
+            ->rawColumns(['image','action','status'])
             ->addIndexColumn()
             ->make(true);
             } 

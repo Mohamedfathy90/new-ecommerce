@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SliderController;
 use Illuminate\Support\Facades\Route;
 
@@ -11,6 +12,7 @@ Route::post('/admin/updateprofile', [AdminController::class, 'updateprofile']);
 Route::post('/admin/updatepassword', [AdminController::class, 'updatepassword']);
 
 Route::resource('/admin/slider',SliderController::class);
+Route::resource('/admin/category',CategoryController::class);
 
 
 

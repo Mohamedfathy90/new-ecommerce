@@ -18,16 +18,16 @@
               <div class="col-12">
                 <div class="card">
                   <div class="card-header">
-                    <h4>Simple Table</h4>
                     <div class="card-header-action">
                     <a href="/admin/slider/create" class="btn btn-primary">Create New</a>
                     </div>
                   </div>
                   <div class="card-body">
-                  <table class="table table-bordered" id="datatable-crud">
+                  <table class="table table-bordered" id="slider-table">
                     <thead>
                     <tr>
                     <th>No.</th>
+                    <th>Image</th>
                     <th>Type</th>
                     <th>Title</th>
                     <th>Price</th>

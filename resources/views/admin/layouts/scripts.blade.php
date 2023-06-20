@@ -3,6 +3,8 @@
 
 <!-- Datatables -->
 <script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
 
   <!-- SweetAlert 2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -23,8 +25,19 @@
   <script src="{{asset('backend')}}/assets/modules/jqvmap/dist/maps/jquery.vmap.world.js"></script>
   <script src="{{asset('backend')}}/assets/modules/summernote/summernote-bs4.js"></script>
   <script src="{{asset('backend')}}/assets/modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
-  <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+  
 
+  
+   <!-- IconPicker -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-iconpicker/1.10.0/js/bootstrap-iconpicker-iconset-all.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-iconpicker/1.10.0/js/bootstrap-iconpicker.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-iconpicker/1.10.0/js/bootstrap-iconpicker.min.js"></script>
+ 
+  
+  
+  
+  
+  
   <!-- Page Specific JS File -->
   <!-- <script src="{{asset('backend')}}/assets/js/page/index-0.js"></script> -->
   
@@ -32,20 +45,19 @@
   <!-- <script src="{{asset('backend')}}/assets/js/scripts.js"></script>
   <script src="{{asset('backend')}}/assets/js/custom.js"></script> -->
    
-<script>
-$(document).ready(function() {
-$.ajax({
-headers: {
-'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-}
-});
+<script  type="text/javascript">
 
-$('#datatable-crud').DataTable({
+// Slider Table 
+
+var table = $('#slider-table').DataTable({
+ajax: "data.json",
+stateSave: true,
 processing: true,
 serverSide: true,
 ajax: "/admin/slider",
 columns: [
 {data: 'DT_RowIndex', name: '', orderable: false, searchable: false},
+{ data: 'image', name: 'image' },
 { data: 'type', name: 'type' },
 { data: 'title', name: 'title' },
 { data: 'price', name: 'price' },
@@ -56,8 +68,28 @@ columns: [
 ],
 order: [[0, 'desc']]
 });
+
+
+// Category Table 
+var table = $('#category-table').DataTable({
+stateSave: true,
+processing: true,
+serverSide: true,
+ajax: "/admin/category",
+columns: [
+{data: 'DT_RowIndex', name: '', orderable: false, searchable: false},
+{ data: 'icon', name: 'icon' },
+{ data: 'name', name: 'name' },
+{ data: 'status', name: 'status' },
+{data: 'action', name: 'action', orderable: false},
+],
+order: [[0, 'desc']]
 });
-  
+
+
+
+
+// delete action
 $(document).on('click','.show_confirm',function (event){
 	event.preventDefault();
 	var requestURL= $(this).data('url');
@@ -84,7 +116,7 @@ $(document).on('click','.show_confirm',function (event){
       data.message,
       'success'
     )
-    window.LaravelDataTables["sliders-table"].ajax.reload();
+    table.ajax.reload(); 
     }
     })
   }

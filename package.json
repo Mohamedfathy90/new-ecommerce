@@ -16,6 +16,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "bootstrap-iconpicker": "^1.8.2",
         "sweetalert2": "^11.7.12"
     }
 }
