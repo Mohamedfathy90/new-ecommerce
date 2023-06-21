@@ -24,11 +24,10 @@
                     @csrf
                     
                     <div class="form-group">  
-                        <label>Icon</label>
-                        <input type="text" class='form-control' name="icon" value="{{$category->icon}}">
-                        @error('icon')
-                        <span class="text-danger">{{ $message }}</span>
-                        @enderror
+                    <div role="iconpicker" name="icon" data-align="left" data-label-header="Select Icon" data-rows="3" data-cols="6" data-icon="{{$category->icon}}"> </div>
+                    @error('icon')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
                     </div>
                     <div class="form-group">
                         <label>Name</label>

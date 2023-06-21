@@ -26,11 +26,27 @@ class CategoryController extends Controller
             })
             
             ->addColumn('status', function($row){
-                if($row['status']==='active')
-                return '<span class="badge badge-success">Active</span>';
-                if($row['status']==='inactive')
-                return '<span class="badge badge-danger">Inactive</span>';
-                })
+                if($row['status']==='active'){
+                return '<label class="custom-switch">
+                <input type="radio" value="1" class="custom-switch-input 
+                change-status"  data-url="/admin/update_status/'.$row['id'].'" checked="">
+                <span class="custom-switch-indicator"></span>
+                <span class="custom-switch-description">Active</span>
+                
+                </label>';
+                }
+            
+                if($row['status']==='inactive'){
+                return '<label class="custom-switch">
+                <input type="radio" value="1" class="custom-switch-input">
+                <span class="custom-switch-indicator"></span>
+                <span class="custom-switch-description">Inactive</span>
+                
+                </label>';
+                }
+                
+            })
+                
             
             ->rawColumns(['icon','action','status'])
             ->addIndexColumn()
@@ -88,9 +104,9 @@ class CategoryController extends Controller
         $category = Category::findorfail($id);
         
         $credentials = $request->validate([
-            'icon'   => ['required','string'] ,
-            'name'   => ['required' , 'string'] , 
+            'name'   => ['required' , 'string']  
         ]);
+        $credentials['icon'] = $request->icon ?: $category->icon ;
         $credentials['status'] = $request->status ;
       
         $category->update($credentials);
@@ -105,5 +121,16 @@ class CategoryController extends Controller
     {
         Category::destroy($id);
         return response(['status'=>'success' , 'message'=>"Category has been deleted!"]);
+    }
+
+    public function updatestatus(Category $category){
+        
+        if($category->status === 'active'){
+            $category->status = 'inactive';
+        }
+        if($category->status === 'inactive'){
+            $category->status = 'active';
+        }
+        $category->save();
     }
 }

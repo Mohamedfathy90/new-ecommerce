@@ -13,6 +13,7 @@ Route::post('/admin/updatepassword', [AdminController::class, 'updatepassword'])
 
 Route::resource('/admin/slider',SliderController::class);
 Route::resource('/admin/category',CategoryController::class);
+Route::post('/admin/update_status/{category}', [CategoryController::class, 'updatestatus']);
 
 
 

@@ -124,4 +124,28 @@ $(document).on('click','.show_confirm',function (event){
 })
 
 </script>   
+ 
+<script>
+$(document).on('click','.change-status',function (event){
+  var requestURL= $(this).data('url');
+  $.ajax({
+      headers:{
+			'x-csrf-token':$('meta[name="csrf-token"]').attr('content')
+			},
+      url  : requestURL ,
+      type : "POST" , 
+    success : function(response) {
+      // location.reload() ;
+    } 
+  });
+})
 
+ 
+
+
+
+
+
+
+
+</script>
