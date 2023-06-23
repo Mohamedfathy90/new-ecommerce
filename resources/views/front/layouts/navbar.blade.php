@@ -311,9 +311,9 @@
                             
                             @auth
                             @if(auth()->user()->role === 'admin')
-                            <li><a href="/admin/dashboard">my account</a></li>
+                            <li><a href="/admin/dashboard">Dashboard</a></li>
                             @elseif(auth()->user()->role === 'vendor')
-                            <li><a href="/vendor/dashboard">my account</a></li>
+                            <li><a href="/vendor/dashboard">Account</a></li>
                             @else
                             <li><a href="/user/dashboard">my account</a></li>
                             @endif

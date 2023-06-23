@@ -25,7 +25,8 @@ class SliderController extends Controller
                 })
             
             ->addColumn('action', function($row){
-            $actionBtn = '<a href= "/admin/slider/'.$row['id'].'/edit"   class="edit btn btn-success">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger show_confirm" data-url="/admin/slider/'.$row['id'].'">Delete</a>';
+            $actionBtn = '<a href= "/admin/slider/'.$row['id'].'/edit"   class="edit btn btn-success">Edit</a> <a href="javascript:void(0)" 
+            class="delete btn btn-danger show_confirm" data-table="slidertable" data-url="/admin/slider/'.$row['id'].'">Delete</a>';
             return $actionBtn;
             })
             

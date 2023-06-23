@@ -42,14 +42,13 @@
   <!-- <script src="{{asset('backend')}}/assets/js/page/index-0.js"></script> -->
   
   <!-- Template JS File -->
-  <!-- <script src="{{asset('backend')}}/assets/js/scripts.js"></script>
-  <script src="{{asset('backend')}}/assets/js/custom.js"></script> -->
+  <script src="{{asset('backend')}}/assets/js/scripts.js"></script>
+  <script src="{{asset('backend')}}/assets/js/custom.js"></script>
    
 <script  type="text/javascript">
 
 // Slider Table 
-
-var table = $('#slider-table').DataTable({
+var slidertable = $('#slider-table').DataTable({
 ajax: "data.json",
 stateSave: true,
 processing: true,
@@ -71,7 +70,7 @@ order: [[0, 'desc']]
 
 
 // Category Table 
-var table = $('#category-table').DataTable({
+var categorytable = $('#category-table').DataTable({
 stateSave: true,
 processing: true,
 serverSide: true,
@@ -87,12 +86,29 @@ order: [[0, 'desc']]
 });
 
 
+// subCategory Table 
+var subcategorytable = $('#subcategory-table').DataTable({
+stateSave: true,
+processing: true,
+serverSide: true,
+ajax: "/admin/subcategory",
+columns: [
+{data: 'DT_RowIndex', name: '', orderable: false, searchable: false},
+{ data: 'name', name: 'name' },
+{ data: 'category', name: 'category'},
+{ data: 'status', name: 'status' },
+{data: 'action', name: 'action', orderable: false},
+],
+order: [[0, 'desc']]
+});
+
 
 
 // delete action
 $(document).on('click','.show_confirm',function (event){
 	event.preventDefault();
 	var requestURL= $(this).data('url');
+	var table= $(this).data('table');
   Swal.fire({
   title: 'Are you sure?',
   text: "You won't be able to revert this!",
@@ -116,31 +132,76 @@ $(document).on('click','.show_confirm',function (event){
       data.message,
       'success'
     )
-    table.ajax.reload(); 
+    switch (table) {
+      case "slider":
+      slidertable.ajax.reload(); 
+      break;
+      case "category":
+      categorytable.ajax.reload(); 
+      break;
+      case "subcategory":
+      subcategorytable.ajax.reload(); 
+      break;
+    }
     }
     })
   }
   })
 })
 
-</script>   
- 
-<script>
-$(document).on('click','.change-status',function (event){
-  var requestURL= $(this).data('url');
+
+
+
+// retrieve subcategories depending on category selection
+
+$(document).on('change','.select-category',function (event){
+  var requestURL   = $(this).data('url')+$('.select-category').find(":selected").val();
   $.ajax({
       headers:{
 			'x-csrf-token':$('meta[name="csrf-token"]').attr('content')
 			},
       url  : requestURL ,
       type : "POST" , 
-    success : function(response) {
-      // location.reload() ;
+     success : function(data) {
+      var $el = $(".select-subcategory");
+      $el.empty(); // remove old options
+      $.each(data, function (i, value) {
+      $('.select-subcategory').append('<option value=' + value.id + '>' + value.name + '</option>');
+      });
+     } 
+   });
+})
+
+
+
+
+
+
+$(document).on('click','.change-status',function (event){
+  var requestURL   = $(this).data('url');
+  var requesttable = $(this).data('table')
+  $.ajax({
+      headers:{
+			'x-csrf-token':$('meta[name="csrf-token"]').attr('content')
+			},
+      url  : requestURL ,
+      type : "POST" , 
+    success : function() {
+      switch (requesttable) {
+      case "category":
+      categorytable.ajax.reload(); 
+      break;
+      case "subcategory":
+      subcategorytable.ajax.reload(); 
+      break;
+    }
     } 
   });
 })
 
- 
+
+
+
 
 
 

@@ -9,8 +9,8 @@
             <h1>Create Main Category</h1>
             <div class="section-header-breadcrumb">
               <div class="breadcrumb-item active"><a href="/admin/dashboard">Dashboard</a></div>
-              <div class="breadcrumb-item"><a href="/admin/category">Homepage Sliders</a></div>
-              <div class="breadcrumb-item"><a href="/admin/category/create">Create Slide</a></div>
+              <div class="breadcrumb-item"><a href="/admin/category">All Categories</a></div>
+              <div class="breadcrumb-item"><a href="/admin/category/create">Create Category</a></div>
             </div>
           </div>
             

@@ -13,7 +13,7 @@ class CategoryController extends Controller
     public function index()
     {
         if(request()->ajax()) {
-            return datatables()->of(Category::select('*'))
+            return datatables()->of(Category::all())
             
             ->addColumn('icon', function($row){
                return '<i style="font-size:25px;" class="'.$row['icon'].'" aria-hidden="true"></i>' ;
@@ -21,7 +21,8 @@ class CategoryController extends Controller
                 })
             
             ->addColumn('action', function($row){
-            $actionBtn = '<a href= "/admin/category/'.$row['id'].'/edit"   class="edit btn btn-success">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger show_confirm" data-url="/admin/category/'.$row['id'].'">Delete</a>';
+            $actionBtn = '<a href= "/admin/category/'.$row['id'].'/edit"   class="edit btn btn-success">Edit</a> <a href="javascript:void(0)" 
+            class="delete btn btn-danger show_confirm" data-table="category" data-url="/admin/category/'.$row['id'].'">Delete</a>';
             return $actionBtn;
             })
             
@@ -29,7 +30,7 @@ class CategoryController extends Controller
                 if($row['status']==='active'){
                 return '<label class="custom-switch">
                 <input type="radio" value="1" class="custom-switch-input 
-                change-status"  data-url="/admin/update_status/'.$row['id'].'" checked="">
+                change-status" data-table="category" data-url="/admin/update_category_status/'.$row['id'].'" checked="">
                 <span class="custom-switch-indicator"></span>
                 <span class="custom-switch-description">Active</span>
                 
@@ -38,7 +39,7 @@ class CategoryController extends Controller
             
                 if($row['status']==='inactive'){
                 return '<label class="custom-switch">
-                <input type="radio" value="1" class="custom-switch-input">
+                <input type="radio" value="1" class="custom-switch-input change-status" data-table="category" data-url="/admin/update_category_status/'.$row['id'].'">
                 <span class="custom-switch-indicator"></span>
                 <span class="custom-switch-description">Inactive</span>
                 
@@ -125,12 +126,14 @@ class CategoryController extends Controller
 
     public function updatestatus(Category $category){
         
-        if($category->status === 'active'){
-            $category->status = 'inactive';
+        if($category->status == 'active'){
+           $category->update(['status' => 'inactive']);
+           return response(['status'=>'success' , 'message'=>"Status has been updated!"]);
         }
-        if($category->status === 'inactive'){
-            $category->status = 'active';
+        if($category->status =='inactive'){
+           $category->update(['status' => 'active']);
+           return response(['status'=>'success' , 'message'=>"Status has been updated!"]);
         }
-        $category->save();
+        
     }
 }

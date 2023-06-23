@@ -9,7 +9,7 @@
             <h1>Edit Main Category</h1>
             <div class="section-header-breadcrumb">
               <div class="breadcrumb-item active"><a href="/admin/dashboard">Dashboard</a></div>
-              <div class="breadcrumb-item"><a href="/admin/slider">Main Categories</a></div>
+              <div class="breadcrumb-item"><a href="/admin/category">Main Categories</a></div>
               <div class="breadcrumb-item"><a href="">Edit Category</a></div>
             </div>
           </div>
@@ -32,7 +32,7 @@
                     <div class="form-group">
                         <label>Name</label>
                         <input type="text" class='form-control' name="name" value="{{$category->name}}">
-                        @error('type')
+                        @error('name')
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>

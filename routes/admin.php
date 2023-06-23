@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ChildCategoryController;
 use App\Http\Controllers\SliderController;
+use App\Http\Controllers\SubcategoryController;
+use App\Models\Subcategory;
 use Illuminate\Support\Facades\Route;
 
 
@@ -12,8 +15,14 @@ Route::post('/admin/updateprofile', [AdminController::class, 'updateprofile']);
 Route::post('/admin/updatepassword', [AdminController::class, 'updatepassword']);
 
 Route::resource('/admin/slider',SliderController::class);
+
 Route::resource('/admin/category',CategoryController::class);
-Route::post('/admin/update_status/{category}', [CategoryController::class, 'updatestatus']);
+Route::post('/admin/update_category_status/{category}', [CategoryController::class, 'updatestatus']);
 
 
+Route::resource('/admin/subcategory',SubcategoryController::class);
+Route::post('/admin/update_subcategory_status/{subcategory}', [SubcategoryController::class, 'updatestatus']);
+Route::post('/admin/getsubcategory/{category}', [SubcategoryController::class, 'getsubcategories']);
 
+Route::resource('/admin/childcategory',ChildCategoryController::class);
+Route::post('/admin/update_childcategory_status/{childcategory}', [ChildCategoryController::class, 'updatestatus']);
