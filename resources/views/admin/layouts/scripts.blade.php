@@ -102,7 +102,22 @@ columns: [
 order: [[0, 'desc']]
 });
 
-
+// childCategory Table 
+var childcategorytable = $('#childcategory-table').DataTable({
+stateSave: true,
+processing: true,
+serverSide: true,
+ajax: "/admin/childcategory",
+columns: [
+{data: 'DT_RowIndex', name: '', orderable: false, searchable: false},
+{ data: 'name', name: 'name' },
+{ data: 'category', name: 'category'},
+{ data: 'subcategory', name: 'subcategory'},
+{ data: 'status', name: 'status' },
+{data: 'action', name: 'action', orderable: false},
+],
+order: [[0, 'desc']]
+});
 
 // delete action
 $(document).on('click','.show_confirm',function (event){
@@ -142,6 +157,9 @@ $(document).on('click','.show_confirm',function (event){
       case "subcategory":
       subcategorytable.ajax.reload(); 
       break;
+      case "childcategory":
+      childcategorytable.ajax.reload(); 
+      break;
     }
     }
     })
@@ -149,13 +167,22 @@ $(document).on('click','.show_confirm',function (event){
   })
 })
 
+// retrieve subcategories depending on category selection 
 
 
+$(document).ready(function(){
 
-// retrieve subcategories depending on category selection
-
-$(document).on('change','.select-category',function (event){
-  var requestURL   = $(this).data('url')+$('.select-category').find(":selected").val();
+  $condition = document.location.href.indexOf('/admin/childcategory/') > -1 && 
+        document.location.href.indexOf('/edit') > -1;
+    if ($condition)
+      {
+        myHandler()
+      }
+  });   
+$(".select-category").on("change", myHandler);
+function myHandler(e) {
+  var requestURL       = "/admin/getsubcategory/"+$('.select-category').find(":selected").val();
+  var subcategory_id   = $('.select-category').data('subcategory')
   $.ajax({
       headers:{
 			'x-csrf-token':$('meta[name="csrf-token"]').attr('content')
@@ -168,15 +195,16 @@ $(document).on('change','.select-category',function (event){
       $.each(data, function (i, value) {
       $('.select-subcategory').append('<option value=' + value.id + '>' + value.name + '</option>');
       });
-     } 
+      if($condition){
+      $(".select-subcategory").val(subcategory_id);
+      }
+    } 
    });
-})
+   
+}
 
 
-
-
-
-
+// update status using toggle button
 $(document).on('click','.change-status',function (event){
   var requestURL   = $(this).data('url');
   var requesttable = $(this).data('table')
@@ -194,19 +222,13 @@ $(document).on('click','.change-status',function (event){
       case "subcategory":
       subcategorytable.ajax.reload(); 
       break;
+      case "childcategory":
+      childcategorytable.ajax.reload(); 
+      break;
     }
     } 
   });
 })
-
-
-
-
-
-
-
-
-
 
 
 </script>

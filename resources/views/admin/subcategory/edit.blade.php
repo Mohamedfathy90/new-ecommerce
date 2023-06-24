@@ -46,9 +46,9 @@
                       <label>Status</label>
                       <select class="form-control" name="status">
                         <option value="active" 
-                        @php echo $category->status==="active"? "selected" :"" @endphp> Active </option>
+                        @php echo $subcategory->status==="active"? "selected" :"" @endphp> Active </option>
                         <option value="inactive" 
-                        @php echo $category->status==="inactive"? "selected" :"" @endphp> Inactive </option>
+                        @php echo $subcategory->status==="inactive"? "selected" :"" @endphp> Inactive </option>
                       </select>
                     </div>
                     

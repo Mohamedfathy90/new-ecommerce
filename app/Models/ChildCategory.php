@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ChildCategory extends Model
 {
     protected $guarded =[];
+    protected $table = 'childcategories';
     use HasFactory;
 
     public function subcategory(){

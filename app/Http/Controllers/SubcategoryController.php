@@ -28,27 +28,26 @@ class SubcategoryController extends Controller
          
             ->addColumn('action', function($row){
             $actionBtn = '<a href= "/admin/subcategory/'.$row['id'].'/edit"   class="edit btn btn-success">Edit</a> <a href="javascript:void(0)" 
-            class="delete btn btn-danger show_confirm"  data-table="subcategory" data-url="/admin/subcategory/'.$row['id'].'">Delete</a>';
+            class="delete btn btn-danger show_confirm" data-table="subcategory" data-url="/admin/subcategory/'.$row['id'].'">Delete</a>';
             return $actionBtn;
             })
             
             ->addColumn('status', function($row){
                 if($row['status']==='active'){
                 return '<label class="custom-switch">
-                <input type="radio" value="1" class="custom-switch-input 
-                change-status" data-table="subcategory" data-url="/admin/update_subcategory_status/'.$row['id'].'" checked="">
+                <input type="radio" value="1" class="custom-switch-input change-status" 
+                data-table="subcategory" data-url="/admin/update_subcategory_status/'.$row['id'].'" checked="">
                 <span class="custom-switch-indicator"></span>
                 <span class="custom-switch-description">Active</span>
-                
                 </label>';
                 }
             
                 if($row['status']==='inactive'){
                 return '<label class="custom-switch">
-                <input type="radio" value="1" class="custom-switch-input change-status" data-table="subcategory" data-url="/admin/update_subcategory_status/'.$row['id'].'">
+                <input type="radio" value="1" class="custom-switch-input change-status" 
+                data-table="subcategory" data-url="/admin/update_subcategory_status/'.$row['id'].'">
                 <span class="custom-switch-indicator"></span>
                 <span class="custom-switch-description">Inactive</span>
-                
                 </label>';
                 }
                 

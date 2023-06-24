@@ -29,26 +29,23 @@ class CategoryController extends Controller
             ->addColumn('status', function($row){
                 if($row['status']==='active'){
                 return '<label class="custom-switch">
-                <input type="radio" value="1" class="custom-switch-input 
-                change-status" data-table="category" data-url="/admin/update_category_status/'.$row['id'].'" checked="">
+                <input type="radio" value="1" class="custom-switch-input change-status" 
+                 data-table="category" data-url="/admin/update_category_status/'.$row['id'].'" checked="">
                 <span class="custom-switch-indicator"></span>
                 <span class="custom-switch-description">Active</span>
-                
                 </label>';
                 }
             
                 if($row['status']==='inactive'){
                 return '<label class="custom-switch">
-                <input type="radio" value="1" class="custom-switch-input change-status" data-table="category" data-url="/admin/update_category_status/'.$row['id'].'">
+                <input type="radio" value="1" class="custom-switch-input change-status" 
+                data-table="category" data-url="/admin/update_category_status/'.$row['id'].'">
                 <span class="custom-switch-indicator"></span>
-                <span class="custom-switch-description">Inactive</span>
-                
+                <span class="custom-switch-description">Inactive</span>  
                 </label>';
                 }
                 
             })
-                
-            
             ->rawColumns(['icon','action','status'])
             ->addIndexColumn()
             ->make(true);
