@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Models\Category;
 use App\Models\Slider;
 use Illuminate\Support\Facades\Route;
 

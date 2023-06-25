@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class CategoryController extends Controller
 {
@@ -22,7 +23,8 @@ class CategoryController extends Controller
             
             ->addColumn('action', function($row){
             $actionBtn = '<a href= "/admin/category/'.$row['id'].'/edit"   class="edit btn btn-success">Edit</a> <a href="javascript:void(0)" 
-            class="delete btn btn-danger show_confirm" data-table="category" data-url="/admin/category/'.$row['id'].'">Delete</a>';
+            class="delete btn btn-danger show_confirm" data-table="category" data-url="/admin/category/'.$row['id'].'"
+            data-text="Are You Sure you want to permenantly delete this category with all its subcategories?">Delete</a>';
             return $actionBtn;
             })
             
@@ -102,7 +104,7 @@ class CategoryController extends Controller
         $category = Category::findorfail($id);
         
         $credentials = $request->validate([
-            'name'   => ['required' , 'string']  
+            'name'   => ['required' , 'string',Rule::unique('categories')->ignore($category->id)]  
         ]);
         $credentials['icon'] = $request->icon ?: $category->icon ;
         $credentials['status'] = $request->status ;

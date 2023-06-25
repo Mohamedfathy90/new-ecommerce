@@ -73,9 +73,9 @@
                       <label>Status</label>
                       <select class="form-control" name="status">
                         <option value="active" 
-                        @php echo $slider->status==="active"? "selected" :"" @endphp> Active </option>
+                        {{$slider->status==="active"? "selected" :""}}> Active </option>
                         <option value="inactive" 
-                        @php echo $slider->status==="inactive"? "selected" :"" @endphp> Inactive </option>
+                        {{$slider->status==="inactive"? "selected" :""}}> Inactive </option>
                       </select>
                     </div>
                     

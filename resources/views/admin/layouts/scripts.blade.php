@@ -119,14 +119,33 @@ columns: [
 order: [[0, 'desc']]
 });
 
+
+// Brands Table 
+var brandtable = $('#brand-table').DataTable({
+stateSave: true,
+processing: true,
+serverSide: true,
+ajax: "/admin/brand",
+columns: [
+{data: 'DT_RowIndex', name: '', orderable: false, searchable: false},
+{ data: 'image', name: 'image'},
+{ data: 'name', name: 'name' },
+{ data: 'status', name: 'status' },
+{ data: 'is_featured', name: 'is_featured' },
+{data: 'action', name: 'action', orderable: false},
+],
+order: [[0, 'desc']]
+});
+
+
 // delete action
 $(document).on('click','.show_confirm',function (event){
 	event.preventDefault();
 	var requestURL= $(this).data('url');
 	var table= $(this).data('table');
+  var text = $(this).data('text');
   Swal.fire({
-  title: 'Are you sure?',
-  text: "You won't be able to revert this!",
+  text: text,
   icon: 'warning',
   showCancelButton: true,
   confirmButtonColor: '#3085d6',
@@ -160,6 +179,9 @@ $(document).on('click','.show_confirm',function (event){
       case "childcategory":
       childcategorytable.ajax.reload(); 
       break;
+      case "brand":
+      brandtable.ajax.reload(); 
+      break;
     }
     }
     })
@@ -168,19 +190,7 @@ $(document).on('click','.show_confirm',function (event){
 })
 
 // retrieve subcategories depending on category selection 
-
-
-$(document).ready(function(){
-
-  $condition = document.location.href.indexOf('/admin/childcategory/') > -1 && 
-        document.location.href.indexOf('/edit') > -1;
-    if ($condition)
-      {
-        myHandler()
-      }
-  });   
-$(".select-category").on("change", myHandler);
-function myHandler(e) {
+$(document).on('change',".select-category",function (event){
   var requestURL       = "/admin/getsubcategory/"+$('.select-category').find(":selected").val();
   var subcategory_id   = $('.select-category').data('subcategory')
   $.ajax({
@@ -195,13 +205,9 @@ function myHandler(e) {
       $.each(data, function (i, value) {
       $('.select-subcategory').append('<option value=' + value.id + '>' + value.name + '</option>');
       });
-      if($condition){
-      $(".select-subcategory").val(subcategory_id);
-      }
     } 
-   });
-   
-}
+   }); 
+});
 
 
 // update status using toggle button
@@ -224,6 +230,9 @@ $(document).on('click','.change-status',function (event){
       break;
       case "childcategory":
       childcategorytable.ajax.reload(); 
+      break;
+      case "brand":
+      brandtable.ajax.reload(); 
       break;
     }
     } 

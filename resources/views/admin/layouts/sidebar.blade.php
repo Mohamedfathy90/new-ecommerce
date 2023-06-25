@@ -25,9 +25,22 @@
             </ul>
           </li>
             
-   
-            <li class="dropdown">
-              <a href="#" class="nav-link has-dropdownt" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Manage Website</span></a>
+          <li class="dropdown">
+              <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Manage Products</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/admin/brand">Brands</a></li>
+              </ul>
+              </li>
+            
+              <li class="dropdown">
+              <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Ecommerce</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/admin/vendor-profile">Vendor Profiles</a></li>
+              </ul>
+              </li>
+              
+              <li class="dropdown">
+              <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Manage Website</span></a>
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="/admin/slider">Homepage Slider</a></li>
               </ul>

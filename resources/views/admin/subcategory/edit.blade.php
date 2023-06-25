@@ -27,7 +27,8 @@
                       <label>Main Category</label>
                       <select class="form-control" name="category_id">
                         @foreach($categories as $category)
-                        <option value="{{$category->id}}" @php echo ($subcategory->category_id==$category->id) ? "selected" : "" @endphp>
+                        <option value="{{$category->id}}" 
+                        {{($subcategory->category_id==$category->id) ? "selected" : ""}}>
                         {{$category->name}}
                         </option>
                         @endforeach
@@ -46,9 +47,9 @@
                       <label>Status</label>
                       <select class="form-control" name="status">
                         <option value="active" 
-                        @php echo $subcategory->status==="active"? "selected" :"" @endphp> Active </option>
+                        {{$subcategory->status==="active"? "selected" :""}} > Active </option>
                         <option value="inactive" 
-                        @php echo $subcategory->status==="inactive"? "selected" :"" @endphp> Inactive </option>
+                        {{$subcategory->status==="inactive"? "selected" :""}} > Inactive </option>
                       </select>
                     </div>
                     

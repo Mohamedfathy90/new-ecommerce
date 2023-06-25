@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\ChildCategory;
+use App\Models\Subcategory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -16,7 +18,10 @@ class ChildCategoryController extends Controller
     {
         if(request()->ajax()) {
             
-            $childcategory = ChildCategory::with('subcategory')->orderBy('category_id')->get();
+            $childcategory = ChildCategory::with(['subcategory','category'])->whereHas('category', function (Builder $query) {
+                $query->where('status', 'active');
+                })->orderby('category_id')->get();
+            
             return datatables()->of($childcategory)
             
             ->addColumn('subcategory', function(ChildCategory $childcategory){
@@ -33,7 +38,8 @@ class ChildCategoryController extends Controller
          
             ->addColumn('action', function($row){
             $actionBtn = '<a href= "/admin/childcategory/'.$row['id'].'/edit"   class="edit btn btn-success">Edit</a> <a href="javascript:void(0)" 
-            class="delete btn btn-danger show_confirm" data-table="childcategory" data-url="/admin/childcategory/'.$row['id'].'">Delete</a>';
+            class="delete btn btn-danger show_confirm" data-table="childcategory" data-url="/admin/childcategory/'.$row['id'].'"
+            data-text="Are You Sure you want to permenantly delete this childcategory ?">Delete</a>';
             return $actionBtn;
             })
             
@@ -105,9 +111,10 @@ class ChildCategoryController extends Controller
      */
     public function edit(ChildCategory $childcategory)
     {
-        
         return view('admin.childcategory.edit' , ['childcategory'=>$childcategory->load('subcategory') , 
-        'categories'=>Category::with(['subcategory'])->where('status','active')->get()]);
+        'categories'=>Category::with(['subcategory'])->where('status','active')->get() , 
+        'subcategories'=>Subcategory::where('category_id',$childcategory->category_id)->get()
+    ]);
     }
 
     /**
@@ -116,7 +123,7 @@ class ChildCategoryController extends Controller
     public function update(Request $request, ChildCategory $childcategory)
     {
         $credentials = $request->validate([
-            'name'   => ['required' , 'string' , Rule::unique('childcategories')->ignore($childcategory->id),] , 
+            'name'   => ['required' , 'string' , Rule::unique('childcategories')->ignore($childcategory->id)] , 
         ]);
 
         $credentials['status']         = $request->status ;
@@ -130,9 +137,10 @@ class ChildCategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ChildCategory $childCategory)
+    public function destroy(ChildCategory $childcategory)
     {
-        //
+        ChildCategory::destroy($childcategory->id);
+        return response(['status'=>'success' , 'message'=>"Child Category has been deleted!"]);
     }
 
     public function updatestatus(ChildCategory $childcategory){

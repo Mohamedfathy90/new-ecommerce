@@ -28,7 +28,7 @@
                       <select class="form-control select-category" data-url= "/admin/getsubcategory/" data-subcategory="{{$childcategory->subcategory->id}}" name="category_id">
                         @foreach($categories as $category)
                         <option value="{{$category->id}}" 
-                        @php echo ($childcategory->subcategory->category->id==$category->id) ? "selected" : "" @endphp>
+                        {{($childcategory->subcategory->category->id==$category->id) ? "selected" : ""}}>
                         {{$category->name}}
                         </option>
                         @endforeach
@@ -38,6 +38,12 @@
                     <div class="form-group">
                       <label>Sub Category</label>
                       <select class="form-control select-subcategory"  name="subcategory_id">
+                      @foreach($subcategories as $subcategory)
+                        <option value="{{$subcategory->id}}" 
+                        {{($childcategory->subcategory_id==$subcategory->id) ? "selected" : "" }}>
+                        {{$subcategory->name}}
+                        </option>
+                        @endforeach
                       </select>
                     </div>
                    
@@ -53,9 +59,9 @@
                       <label>Status</label>
                       <select class="form-control" name="status">
                         <option value="active" 
-                        @php echo $childcategory->status==="active"? "selected" :"" @endphp> Active </option>
+                        {{$childcategory->status==="active"? "selected" :""}}> Active </option>
                         <option value="inactive" 
-                        @php echo $childcategory->status==="inactive"? "selected" :"" @endphp> Inactive </option>
+                       {{$childcategory->status==="inactive"? "selected" :""}}> Inactive </option>
                       </select>
                     </div>
                     

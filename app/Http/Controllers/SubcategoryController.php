@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Subcategory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Yajra\DataTables\Facades\DataTables;
@@ -16,19 +17,21 @@ class SubcategoryController extends Controller
     public function index()
     {
         if(request()->ajax()) {
-            
-            $subcategory = Subcategory::with('category')->orderBy('category_id')->get();
-            return datatables()->of($subcategory)
-            
-            ->addColumn('category', function(Subcategory $subcategory){
 
-                return $subcategory->category->name;
+            $subcategory = Subcategory::with('category')->whereHas('category', function (Builder $query) {
+                $query->where('status', 'active');
+                })->orderby('category_id')->get();
                 
+            return datatables()->of($subcategory)
+
+            ->addColumn('category', function(Subcategory $subcategory){
+                return $subcategory->category->name;  
             })
          
             ->addColumn('action', function($row){
             $actionBtn = '<a href= "/admin/subcategory/'.$row['id'].'/edit"   class="edit btn btn-success">Edit</a> <a href="javascript:void(0)" 
-            class="delete btn btn-danger show_confirm" data-table="subcategory" data-url="/admin/subcategory/'.$row['id'].'">Delete</a>';
+            class="delete btn btn-danger show_confirm" data-table="subcategory" data-url="/admin/subcategory/'.$row['id'].'"
+            data-text="Are You Sure you want to permenantly delete this subcategory with its all childcategories ?">Delete</a>';
             return $actionBtn;
             })
             
@@ -107,7 +110,6 @@ class SubcategoryController extends Controller
         $credentials = $request->validate([
             'name'   => ['required' , 'string' , Rule::unique('subcategories')->ignore($subcategory->id),] , 
         ]);
-
         $credentials['status']      = $request->status ;
         $credentials['category_id'] = $request->category_id ;
         $subcategory->update($credentials);
@@ -121,7 +123,7 @@ class SubcategoryController extends Controller
     public function destroy(Subcategory $subcategory)
     {
         Subcategory::destroy($subcategory->id);
-        return response(['status'=>'success' , 'message'=>"Category has been deleted!"]);
+        return response(['status'=>'success' , 'message'=>"Sub-Category has been deleted!"]);
     }
 
     public function updatestatus(SubCategory $subcategory){
