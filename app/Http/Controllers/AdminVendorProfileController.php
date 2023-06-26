@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AdminVendorProfile;
+use App\Models\Vendor;
+use App\Traits\image;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class AdminVendorProfileController extends Controller
 {
+    use image;
+    
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('admin.vendor-profile.index');
+        return view('admin.vendor-profile.index',['vendor'=>Vendor::where('user_id',auth()->id())->first()]); 
     }
 
     /**
@@ -28,23 +32,14 @@ class AdminVendorProfileController extends Controller
      */
     public function store(Request $request)
     {
-        $credentials = $request->validate([
-            'image'         => ['required' , 'image' , 'max:2048'] ,
-            'name'          => ['required' , 'string','unique:admin_vendor_profiles,name'] , 
-            'email'         => ['required' , 'email','unique:admin_vendor_profiles,email'] , 
-            'address'       => ['required' , 'string'] , 
-            'description'   => ['required' , 'string'] , 
-            'phone'         => ['required','numeric'] , 
-            'fb-link'       => ['url'] ,
-            'tw-link'       => ['url'] ,
-            'inst-link'     => ['url'] ,
-        ]);
+        
+        
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(AdminVendorProfile $adminVendorProfile)
+    public function show()
     {
         //
     }
@@ -52,7 +47,7 @@ class AdminVendorProfileController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(AdminVendorProfile $adminVendorProfile)
+    public function edit()
     {
         //
     }
@@ -60,15 +55,34 @@ class AdminVendorProfileController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, AdminVendorProfile $adminVendorProfile)
+    public function update(Request $request , Vendor $vendor_profile)
     {
-        //
+        $credentials = $request->validate([
+            'image'         => ['image' , 'max:2048'] ,
+            'email'         => ['required' , Rule::unique('vendors')->ignore($vendor_profile->id)] , 
+            'address'       => ['required' , 'string'] , 
+            'description'   => ['required' , 'string'] , 
+            'phone'         => ['required','numeric'] , 
+            // 'fb_link'       => ['url'] ,
+            // 'tw_link'       => ['url'] ,
+            // 'inst_link'     => ['url'] ,
+        ]);
+
+        if ($request->has('image')){
+            $this->deleteimage($vendor_profile->image);
+            $credentials['image']=$this->saveimage('vendor_banners');
+        }
+        else{
+            unset($credentials['image']);
+        }
+        $vendor_profile->update($credentials);
+        return redirect('/admin/vendor-profile');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(AdminVendorProfile $adminVendorProfile)
+    public function destroy()
     {
         //
     }
