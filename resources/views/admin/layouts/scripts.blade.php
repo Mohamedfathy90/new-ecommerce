@@ -138,6 +138,29 @@ order: [[0, 'desc']]
 });
 
 
+// Products Table 
+var producttable = $('#product-table').DataTable({
+stateSave: true,
+processing: true,
+serverSide: true,
+ajax: "/admin/product",
+columns: [
+{data: 'DT_RowIndex', name: '', orderable: false, searchable: false},
+{ data: 'thumbnail', name: 'thumbnail'},
+{ data: 'name', name: 'name'},
+{ data: 'vendor_id', name: 'vendor_id'},
+{ data: 'brand_id', name: 'brand_id'},
+{ data: 'childcategory_id', name: 'childcategory_id'},
+{ data: 'price', name: 'price'},
+{ data: 'sku', name: 'sku'},
+{ data: 'qty', name: 'qty'},
+{ data: 'status', name: 'status'},
+{data: 'action', name: 'action', orderable: false},
+],
+order: [[0, 'desc']]
+});
+
+
 // delete action
 $(document).on('click','.show_confirm',function (event){
 	event.preventDefault();
@@ -192,7 +215,6 @@ $(document).on('click','.show_confirm',function (event){
 // retrieve subcategories depending on category selection 
 $(document).on('change',".select-category",function (event){
   var requestURL       = "/admin/getsubcategory/"+$('.select-category').find(":selected").val();
-  var subcategory_id   = $('.select-category').data('subcategory')
   $.ajax({
       headers:{
 			'x-csrf-token':$('meta[name="csrf-token"]').attr('content')
@@ -202,8 +224,35 @@ $(document).on('change',".select-category",function (event){
      success : function(data) {
       var $el = $(".select-subcategory");
       $el.empty(); // remove old options
+      $('.select-subcategory').append('<option>' + "Select Sub-Category" + '</option>');
       $.each(data, function (i, value) {
       $('.select-subcategory').append('<option value=' + value.id + '>' + value.name + '</option>');
+      });
+    } 
+   }); 
+});
+
+
+// retrieve childcategories depending on subcategory selection 
+$(document).on('change',".select-category",function (event){
+  var $el = $(".select-childcategory");
+  $el.empty(); // remove old options
+});
+
+$(document).on('change',".select-subcategory",function (event){
+  var requestURL       = "/admin/getchildcategory/"+$('.select-subcategory').find(":selected").val();
+  $.ajax({
+      headers:{
+			'x-csrf-token':$('meta[name="csrf-token"]').attr('content')
+			},
+      url  : requestURL ,
+      type : "POST" , 
+     success : function(data) {
+      var $el = $(".select-childcategory");
+      $el.empty(); // remove old options
+      $('.select-childcategory').append('<option>' + "Select Child-Category" + '</option>');
+      $.each(data, function (i, value) {
+      $('.select-childcategory').append('<option value=' + value.id + '>' + value.name + '</option>');
       });
     } 
    }); 
@@ -238,6 +287,12 @@ $(document).on('click','.change-status',function (event){
     } 
   });
 })
+</script>
 
 
+<script>
+      $('.summernote').summernote({
+        tabsize: 2,
+        height: 150
+      });
 </script>

@@ -155,4 +155,10 @@ class ChildCategoryController extends Controller
         }
         
     }
+
+    public function getchildcategories(Subcategory $subcategory){
+        return ChildCategory::where(['status'=>'active','subcategory_id'=>$subcategory->id])->get();
+    }
+
+
 }

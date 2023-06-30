@@ -24,7 +24,7 @@
                     
                     <div class="form-group">
                       <label>Main Category</label>
-                      <select class="form-control select-category" data-url="/admin/getsubcategory/" name="category_id">
+                      <select class="form-control select-category"  name="category_id">
                          <option selected value="">Select main Category</option>
                         @foreach($categories as $category)
                         <option value="{{$category->id}}">{{$category->name}}</option>

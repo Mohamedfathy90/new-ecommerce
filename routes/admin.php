@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminVendorProfileController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChildCategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\SubcategoryController;
 use App\Models\Subcategory;
@@ -28,8 +29,11 @@ Route::post('/admin/getsubcategory/{category}', [SubcategoryController::class, '
 
 Route::resource('/admin/childcategory',ChildCategoryController::class);
 Route::post('/admin/update_childcategory_status/{childcategory}', [ChildCategoryController::class, 'updatestatus']);
+Route::post('/admin/getchildcategory/{subcategory}', [ChildCategoryController::class, 'getchildcategories']);
 
 Route::resource('/admin/brand',BrandController::class);
 Route::post('/admin/update_brand_status/{brand}', [BrandController::class, 'updatestatus']);
 
 Route::resource('/admin/vendor-profile',AdminVendorProfileController::class);
+
+Route::resource('/admin/product',ProductController::class);

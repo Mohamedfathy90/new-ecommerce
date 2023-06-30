@@ -29,6 +29,7 @@
               <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Manage Products</span></a>
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="/admin/brand">Brands</a></li>
+                <li><a class="dropdown-item" href="/admin/product">Products</a></li>
               </ul>
               </li>
             
