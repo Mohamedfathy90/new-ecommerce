@@ -150,12 +150,12 @@ columns: [
 { data: 'name', name: 'name'},
 { data: 'vendor_id', name: 'vendor_id'},
 { data: 'brand_id', name: 'brand_id'},
-{ data: 'childcategory_id', name: 'childcategory_id'},
+{ data: 'category_id', name: 'category_id'},
 { data: 'price', name: 'price'},
 { data: 'sku', name: 'sku'},
 { data: 'qty', name: 'qty'},
 { data: 'status', name: 'status'},
-{data: 'action', name: 'action', orderable: false},
+{data: 'action', name: 'action', orderable: false , width:'200'},
 ],
 order: [[0, 'desc']]
 });

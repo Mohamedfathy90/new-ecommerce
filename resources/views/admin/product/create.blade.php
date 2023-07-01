@@ -9,8 +9,8 @@
             <h1>Add New Product</h1>
             <div class="section-header-breadcrumb">
               <div class="breadcrumb-item active"><a href="/admin/dashboard">Dashboard</a></div>
-              <div class="breadcrumb-item"><a href="/admin/category">All Products</a></div>
-              <div class="breadcrumb-item"><a href="/admin/category/create">Add Product</a></div>
+              <div class="breadcrumb-item"><a href="/admin/product">All Products</a></div>
+              <div class="breadcrumb-item"><a href="/admin/product/create">Add Product</a></div>
             </div>
           </div>
             
@@ -46,13 +46,16 @@
                     <div class="form-group">
                       <label>Select Brand</label>
                       <select class="form-control" name="brand_id">
+                      <option>Select Brand</option>
                         @foreach($brands as $brand)
                         <option value="{{$brand->id}}">{{$brand->name}}</option>
                         @endforeach
                       </select>
+                      @error('brand_id')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
 
-                   
                     <div class="row">
                     <div class="form-group col-md-4">
                       <label>Select main-Category</label>
@@ -62,6 +65,9 @@
                         <option value="{{$category->id}}">{{$category->name}}</option>
                         @endforeach
                       </select>
+                      @error('category_id')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     
@@ -70,6 +76,9 @@
                       <select class="form-control select-subcategory" name="subcategory_id">
                        <option>Select Sub-Category</option>
                       </select>
+                      @error('subcategory_id')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <div class="form-group col-md-4">
@@ -77,6 +86,9 @@
                       <select class="form-control select-childcategory" name="childcategory_id">
                       <option>Select Child-Category</option>
                       </select>
+                      @error('childcategory_id')
+                      <span class="text-danger">{{ $message }}</span>
+                      @enderror
                     </div>
                     </div>
                     
@@ -104,7 +116,7 @@
                         <label>Offer Price</label>
                         <input type="text" class='form-control' name="offer_price" value="{{old('offer_price')}}">
                         @error('offer_price')
-                        <span class="text-danger">{{ $message }}</span>
+                        <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
                     
@@ -126,67 +138,37 @@
 
                     </div>
                     
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
                     <div class="row">
-                    <div class="form-group col-md-3">
-                      <label>is_top</label>
-                      <select class="form-control" name="is_top">
-                        <option value=1>Yes</option>
-                        <option value=0>No</option>
+                    <div class="form-group col-md-6">
+                      <label>Product Type</label>
+                      <select class="form-control" name="type">
+                        <option value=>Select Product Type</option>
+                        <option value='new'>New Arrival</option>
+                        <option value='featured'>Featured Product</option>
+                        <option value='best'>Best Seller</option>
+                        <option value='top'>Top Rated</option>
                       </select>
+                      @error('type')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
-                    <div class="form-group col-md-3">
-                      <label>is_best</label>
-                      <select class="form-control" name="is_best">
-                        <option value=1>Yes</option>
-                        <option value=0>No</option>
-                      </select>
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label>is_featured</label>
-                      <select class="form-control" name="is_featured">
-                        <option value=1>Yes</option>
-                        <option value=0>No</option>
-                      </select>
-                    </div>
-
-                    <div class="form-group col-md-3">
-                      <label>Status</label>
-                      <select class="form-control" name="status">
-                        <option value="active">Active</option>
-                        <option value="inactive">Inactive</option>
-                      </select>
-                    </div>
-
-                    </div>
-
-
-
-
-
-
-
-
-
-
-
-
                     
+                    <div class="form-group col-md-6">
+                      <label>Product Status</label>
+                      <select class="form-control" name="status">
+                        <option value=>Select Product status</option>
+                        <option value=1>Acive</option>
+                        <option value=0>Inacive</option>
+                      </select>
+                      @error('status')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                  
+                  
+                  
+                  </div>
+
                     <button type="submit" class="btn btn-primary">Add</button>
                   </form>
                   </div>
