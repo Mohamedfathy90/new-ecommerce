@@ -46,7 +46,7 @@
                     <div class="form-group">
                       <label>Select Brand</label>
                       <select class="form-control" name="brand_id">
-                      <option>Select Brand</option>
+                      <option value=''>Select Brand</option>
                         @foreach($brands as $brand)
                         <option value="{{$brand->id}}">{{$brand->name}}</option>
                         @endforeach
@@ -60,7 +60,7 @@
                     <div class="form-group col-md-4">
                       <label>Select main-Category</label>
                       <select class="form-control select-category" name="category_id">
-                      <option>Select Main-Category</option>
+                      <option value=''>Select Main-Category</option>
                         @foreach($categories as $category)
                         <option value="{{$category->id}}">{{$category->name}}</option>
                         @endforeach
@@ -72,9 +72,9 @@
 
                     
                     <div class="form-group col-md-4">
-                      <label>Select sub-Category</label>
+                      <label>Select Sub-Category</label>
                       <select class="form-control select-subcategory" name="subcategory_id">
-                       <option>Select Sub-Category</option>
+                       <option value=''>Select Sub-Category</option>
                       </select>
                       @error('subcategory_id')
                         <span class="text-danger">{{ $message }}</span>
@@ -84,7 +84,7 @@
                     <div class="form-group col-md-4">
                       <label>Select Child-Category</label>
                       <select class="form-control select-childcategory" name="childcategory_id">
-                      <option>Select Child-Category</option>
+                      <option value=''>Select Child-Category</option>
                       </select>
                       @error('childcategory_id')
                       <span class="text-danger">{{ $message }}</span>
@@ -142,11 +142,11 @@
                     <div class="form-group col-md-6">
                       <label>Product Type</label>
                       <select class="form-control" name="type">
-                        <option value=>Select Product Type</option>
-                        <option value='new'>New Arrival</option>
-                        <option value='featured'>Featured Product</option>
-                        <option value='best'>Best Seller</option>
-                        <option value='top'>Top Rated</option>
+                        <option value=''>Select Product Type</option>
+                        <option value='New Arrival'>New Arrival</option>
+                        <option value='Featured'>Featured Product</option>
+                        <option value='Best Seller'>Best Seller</option>
+                        <option value='Top Rated'>Top Rated</option>
                       </select>
                       @error('type')
                         <span class="text-danger">{{ $message }}</span>
@@ -156,7 +156,7 @@
                     <div class="form-group col-md-6">
                       <label>Product Status</label>
                       <select class="form-control" name="status">
-                        <option value=>Select Product status</option>
+                        <option value=''>Select Product status</option>
                         <option value=1>Acive</option>
                         <option value=0>Inacive</option>
                       </select>

@@ -145,14 +145,7 @@ class ChildCategoryController extends Controller
 
     public function updatestatus(ChildCategory $childcategory){
         
-        if($childcategory->status == 'active'){
-           $childcategory->update(['status' => 'inactive']);
-           return response(['status'=>'success' , 'message'=>"Status has been updated!"]);
-        }
-        if($childcategory->status =='inactive'){
-           $childcategory->update(['status' => 'active']);
-           return response(['status'=>'success' , 'message'=>"Status has been updated!"]);
-        }
+        $this->changestatus($childcategory);
         
     }
 

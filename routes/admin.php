@@ -6,8 +6,11 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChildCategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductimageController;
+use App\Http\Controllers\ProductvariantController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\SubcategoryController;
+use App\Http\Controllers\VariantitemController;
 use App\Models\Subcategory;
 use Illuminate\Support\Facades\Route;
 
@@ -37,3 +40,30 @@ Route::post('/admin/update_brand_status/{brand}', [BrandController::class, 'upda
 Route::resource('/admin/vendor-profile',AdminVendorProfileController::class);
 
 Route::resource('/admin/product',ProductController::class);
+Route::post('/admin/update_product_status/{product}', [ProductController::class, 'updatestatus']);
+
+
+
+Route::get('/admin/productimage/{product}',[ProductimageController::class , 'index']);
+Route::post('/admin/productimage/{product}',[ProductimageController::class , 'store']);
+Route::delete('/admin/productimage/{productimage}',[ProductimageController::class , 'destroy']);
+
+
+
+Route::get('/admin/productvariant/{product}',[ProductvariantController::class , 'index']);
+Route::get('/admin/productvariant/create/{product}',[ProductvariantController::class , 'create']);
+Route::post('/admin/productvariant/{product}',[ProductvariantController::class , 'store']);
+Route::get('/admin/productvariant/{productvariant}/edit',[ProductvariantController::class , 'edit']);
+Route::patch('/admin/productvariant/{productvariant}',[ProductvariantController::class , 'update']);
+Route::delete('/admin/productvariant/{productvariant}',[ProductvariantController::class , 'destroy']);
+Route::post('/admin/update_productvariant_status/{productvariant}', [ProductvariantController::class, 'updatestatus']);
+
+
+
+Route::get('/admin/variantitem/{productvariant}',[VariantitemController::class , 'index']);
+Route::get('/admin/variantitem/create/{productvariant}',[VariantitemController::class , 'create']);
+Route::post('/admin/variantitem/{productvariant}',[VariantitemController::class , 'store']);
+Route::get('/admin/variantitem/{variantitem}/edit',[VariantitemController::class , 'edit']);
+Route::patch('/admin/variantitem/{variantitem}',[VariantitemController::class , 'update']);
+Route::delete('/admin/variantitem/{variantitem}',[VariantitemController::class , 'destroy']);
+Route::post('/admin/update_variantitem_status/{variantitem}', [VariantitemController::class, 'updatestatus']);

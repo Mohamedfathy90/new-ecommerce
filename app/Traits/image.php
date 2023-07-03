@@ -7,10 +7,19 @@ use Illuminate\Support\Facades\File;
 trait image {
 
 
-public function saveimage ($url){
+public function saveimage ($url,$image=null){
+
 if(request()->has('image')){
-$image_name = 'img_'.time().'.'.request('image')->getclientoriginalextension();
-request()->file('image')->storeAs($url,$image_name);
+    
+    if(gettype(request('image'))=='array'){
+        $image_name = 'img_'.hexdec(uniqid()).'.'.$image->getclientoriginalextension();
+        $image->storeAs($url,$image_name);
+    }
+    else{
+        $image_name = 'img_'.time().'.'.request('image')->getclientoriginalextension();
+        request()->file('image')->storeAs($url,$image_name);
+    }
+
 }
 elseif(request()->has('thumbnail')){
 $image_name = 'img_'.time().'.'.request('thumbnail')->getclientoriginalextension();

@@ -35,6 +35,14 @@
                     </div>
                     
                     <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" class='form-control' name="name" value="{{$vendor->name}}">
+                        @error('name')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    
+                    <div class="form-group">
                         <label>Email</label>
                         <input type="email" class='form-control' name="email" value="{{$vendor->email}}">
                         @error('email')

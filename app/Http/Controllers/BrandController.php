@@ -139,14 +139,7 @@ class BrandController extends Controller
     
     public function updatestatus(Brand $brand){
         
-        if($brand->status == 'active'){
-           $brand->update(['status' => 'inactive']);
-           return response(['status'=>'success' , 'message'=>"Status has been updated!"]);
-        }
-        if($brand->status =='inactive'){
-           $brand->update(['status' => 'active']);
-           return response(['status'=>'success' , 'message'=>"Status has been updated!"]);
-        }
+        $this->changestatus($brand);
         
     }
 }

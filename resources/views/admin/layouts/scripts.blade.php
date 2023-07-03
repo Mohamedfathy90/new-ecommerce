@@ -152,7 +152,59 @@ columns: [
 { data: 'brand_id', name: 'brand_id'},
 { data: 'category_id', name: 'category_id'},
 { data: 'price', name: 'price'},
-{ data: 'sku', name: 'sku'},
+{ data: 'type', name: 'type'},
+{ data: 'qty', name: 'qty'},
+{ data: 'status', name: 'status'},
+{data: 'action', name: 'action', orderable: false , width:'200'},
+],
+order: [[0, 'desc']]
+});
+
+
+// Product Images Table 
+var product= $('#productimage-table').data('product');
+var productimagetable = $('#productimage-table').DataTable({
+stateSave: true,
+processing: true,
+serverSide: true,
+ajax: "/admin/productimage/"+product,
+columns: [
+{data: 'DT_RowIndex', name: '', orderable: false, searchable: false},
+{ data: 'image', name: 'image'},
+{data: 'action', name: 'action', orderable: false , width:'200'},
+],
+order: [[0, 'desc']]
+});
+
+// Product Variants Table 
+var product= $('#productvariant-table').data('product');
+var productvarianttable = $('#productvariant-table').DataTable({
+stateSave: true,
+processing: true,
+serverSide: true,
+ajax: "/admin/productvariant/"+product,
+columns: [
+{data: 'DT_RowIndex', name: '', orderable: false, searchable: false},
+{ data: 'name', name: 'name'},
+{ data: 'status', name: 'status'},
+{data: 'action', name: 'action', orderable: false , width:'300'},
+],
+order: [[0, 'desc']]
+});
+
+
+// Variant Items Table 
+var productvariant= $('#variantitem-table').data('productvariant');
+var variantitemtable = $('#variantitem-table').DataTable({
+stateSave: true,
+processing: true,
+serverSide: true,
+ajax: "/admin/variantitem/"+productvariant,
+columns: [
+{data: 'DT_RowIndex', name: '', orderable: false, searchable: false},
+{ data: 'name', name: 'name'},
+{ data: 'productvariant_id', name: 'productvariant_id'},
+{ data: 'price', name: 'price'},
 { data: 'qty', name: 'qty'},
 { data: 'status', name: 'status'},
 {data: 'action', name: 'action', orderable: false , width:'200'},
@@ -204,6 +256,18 @@ $(document).on('click','.show_confirm',function (event){
       break;
       case "brand":
       brandtable.ajax.reload(); 
+      break;
+      case "product":
+      producttable.ajax.reload(); 
+      break;
+      case "productimage":
+      productimagetable.ajax.reload(); 
+      break;
+      case "productvariant":
+      productvarianttable.ajax.reload(); 
+      break;
+      case "variantitem":
+      variantitemtable.ajax.reload(); 
       break;
     }
     }
@@ -282,6 +346,15 @@ $(document).on('click','.change-status',function (event){
       break;
       case "brand":
       brandtable.ajax.reload(); 
+      break;
+      case "product":
+      producttable.ajax.reload(); 
+      break;
+      case "productvariant":
+      productvarianttable.ajax.reload(); 
+      break;
+      case "variantitem":
+      variantitemtable.ajax.reload(); 
       break;
     }
     } 

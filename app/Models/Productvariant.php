@@ -5,12 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Productvariant extends Model
 {
     use HasFactory;
-    protected $guarded =[]; 
 
-    public function productimage(){
-        return $this->hasMany(Productimage::class);
-    }
+    protected $guarded =[];
 }

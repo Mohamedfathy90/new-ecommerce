@@ -59,6 +59,7 @@ class AdminVendorProfileController extends Controller
     {
         $credentials = $request->validate([
             'image'         => ['image' , 'max:2048'] ,
+            'name'          => ['image' , 'max:2048'] ,
             'email'         => ['required' , Rule::unique('vendors')->ignore($vendor_profile->id)] , 
             'address'       => ['required' , 'string'] , 
             'description'   => ['required' , 'string'] , 

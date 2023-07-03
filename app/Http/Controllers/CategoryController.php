@@ -125,14 +125,7 @@ class CategoryController extends Controller
 
     public function updatestatus(Category $category){
         
-        if($category->status == 'active'){
-           $category->update(['status' => 'inactive']);
-           return response(['status'=>'success' , 'message'=>"Status has been updated!"]);
-        }
-        if($category->status =='inactive'){
-           $category->update(['status' => 'active']);
-           return response(['status'=>'success' , 'message'=>"Status has been updated!"]);
-        }
+        $this->changestatus($category);
         
     }
 }

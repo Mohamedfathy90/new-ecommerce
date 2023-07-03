@@ -128,14 +128,7 @@ class SubcategoryController extends Controller
 
     public function updatestatus(SubCategory $subcategory){
         
-        if($subcategory->status == 'active'){
-           $subcategory->update(['status' => 'inactive']);
-           return response(['status'=>'success' , 'message'=>"Status has been updated!"]);
-        }
-        if($subcategory->status =='inactive'){
-           $subcategory->update(['status' => 'active']);
-           return response(['status'=>'success' , 'message'=>"Status has been updated!"]);
-        }
+        $this->changestatus($subcategory);
         
     }
 
