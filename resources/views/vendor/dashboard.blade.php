@@ -12,7 +12,7 @@
     DASHBOARD START
   ==============================-->
       <div class="row">
-        <div class="col-xl-9 col-xxl-10 col-lg-9 ms-auto">
+        <div class="col-xl-9 col-xxl-10 col-lg-9" style="margin-left:250px;">
           <div class="dashboard_content">
             <div class="wsus__dashboard">
               <div class="row">

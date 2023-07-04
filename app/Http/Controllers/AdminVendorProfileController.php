@@ -59,14 +59,14 @@ class AdminVendorProfileController extends Controller
     {
         $credentials = $request->validate([
             'image'         => ['image' , 'max:2048'] ,
-            'name'          => ['image' , 'max:2048'] ,
+            'name'          => ['required' , Rule::unique('vendors')->ignore($vendor_profile->id)] ,
             'email'         => ['required' , Rule::unique('vendors')->ignore($vendor_profile->id)] , 
             'address'       => ['required' , 'string'] , 
             'description'   => ['required' , 'string'] , 
             'phone'         => ['required','numeric'] , 
-            // 'fb_link'       => ['url'] ,
-            // 'tw_link'       => ['url'] ,
-            // 'inst_link'     => ['url'] ,
+            'fb_link'       => ['url','nullable'] ,
+            'tw_link'       => ['url','nullable'] ,
+            'inst_link'     => ['url','nullable'] ,
         ]);
 
         if ($request->has('image')){

@@ -4,7 +4,7 @@
 
 @section ('content')
       <div class="row">
-        <div class="col-xl-9 col-xxl-10 col-lg-9 ms-auto">
+        <div class="col-xl-9 col-xxl-10 col-lg-9" style="margin-left: 230px;">
           <div class="dashboard_content mt-2 mt-md-0">
             <h3><i class="far fa-user"></i> profile</h3>
             <div class="wsus__dashboard_profile">
@@ -39,14 +39,14 @@
                         
                         <div class="col-xl-6 col-md-6">
                           <div class="wsus__dash_pro_single">
-                            <i class="far fa-phone-alt"></i>
+                            <i class="fas fa-phone"></i>
                             <input type="text" value="{{auth()->user()->phone}}" name="phone">
                           </div>
                         </div>
                         
                         <div class="col-xl-6 col-md-6">
                           <div class="wsus__dash_pro_single">
-                            <i class="fal fa-envelope-open"></i>
+                            <i class="fas fa-envelope-open"></i>
                             <input type="email" value="{{auth()->user()->email}}" name="email">
                           </div>
                             @error('email')
@@ -91,7 +91,7 @@
                               
                               <div class="col-xl-4 col-md-6">
                               <div class="wsus__dash_pro_single">
-                              <i class="fas fa-lock-alt"></i>
+                              <i class="fas fa-lock"></i>
                               <input type="password" name="password" placeholder="new password">
                               @error('password')
                               <span class="text-danger">{{ $message }}</span>
@@ -101,7 +101,7 @@
                               
                               <div class="col-xl-4">
                               <div class="wsus__dash_pro_single">
-                              <i class="fas fa-lock-alt"></i>
+                              <i class="fas fa-lock"></i>
                               <input type="password" name="password_confirmation" placeholder="confirm new password">
                               </div>
                               </div>

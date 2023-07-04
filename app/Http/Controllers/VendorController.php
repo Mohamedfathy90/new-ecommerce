@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\updatepassword;
@@ -70,6 +71,12 @@ class VendorController extends Controller
 
     public function profile(){
         return view('vendor.profile');
+    }
+    
+    
+    public function shopprofile(){
+        $vendor = Vendor::where('user_id',auth()->id())->first();
+        return view('vendor.vendorshop' , ['vendor'=>$vendor]);
     }
 
     public function updateprofile(){
