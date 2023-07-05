@@ -37,7 +37,7 @@
           <i class="far fa-bars dash_bar"></i>
           <i class="far fa-times dash_close"></i>
         </span>
-        <a href="/user/dashboard" class="dash_logo"><img src="/frontend/images/logo.png" alt="logo" class="img-fluid"></a>
+        <a href="/">HomePage</a>
         <ul class="dashboard_link">
           <li><a class="active" href="/{{auth()->user()->role}}/dashboard"><i class="fas fa-tachometer"></i>Dashboard</a></li>
           <li><a href="/{{auth()->user()->role}}/profile"><i class="far fa-user"></i> My Profile</a></li>

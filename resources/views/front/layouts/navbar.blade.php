@@ -7,7 +7,7 @@
                 <div class="col-xl-12">
                     <div class="relative_contect d-flex">
                         <div class="wsus_menu_category_bar">
-                            <i class="far fa-bars"></i>
+                            <i class="fas fa-bars"></i>
                         </div>
                         
                         @php

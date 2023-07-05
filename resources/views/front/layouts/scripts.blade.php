@@ -9,40 +9,50 @@
   <!-- SweetAlert 2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<!-- General JS Scripts -->
-  <!-- <script src="{{asset('backend')}}/assets/modules/jquery.min.js"></script> -->
-  <script src="{{asset('backend')}}/assets/modules/popper.js"></script>
-  <script src="{{asset('backend')}}/assets/modules/tooltip.js"></script>
-  <script src="{{asset('backend')}}/assets/modules/bootstrap/js/bootstrap.min.js"></script>
-  <script src="{{asset('backend')}}/assets/modules/nicescroll/jquery.nicescroll.min.js"></script>
-  <script src="{{asset('backend')}}/assets/modules/moment.min.js"></script>
-  <script src="{{asset('backend')}}/assets/js/stisla.js"></script>
-  
-  <!-- JS Libraies -->
-  <script src="{{asset('backend')}}/assets/modules/simple-weather/jquery.simpleWeather.min.js"></script>
-  <script src="{{asset('backend')}}/assets/modules/chart.min.js"></script>
-  <script src="{{asset('backend')}}/assets/modules/jqvmap/dist/jquery.vmap.min.js"></script>
-  <script src="{{asset('backend')}}/assets/modules/jqvmap/dist/maps/jquery.vmap.world.js"></script>
-  <script src="{{asset('backend')}}/assets/modules/summernote/summernote-bs4.js"></script>
-  <script src="{{asset('backend')}}/assets/modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
-  
 
-  
-   <!-- IconPicker -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-iconpicker/1.10.0/js/bootstrap-iconpicker-iconset-all.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-iconpicker/1.10.0/js/bootstrap-iconpicker.bundle.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-iconpicker/1.10.0/js/bootstrap-iconpicker.min.js"></script>
- 
-  
-  
-  
-  
-  
-  <!-- Page Specific JS File -->
-  <!-- <script src="{{asset('backend')}}/assets/js/page/index-0.js"></script> -->
-  
-  <!-- Template JS File -->
-  <script src="{{asset('backend')}}/assets/js/scripts.js"></script>
-  <script src="{{asset('backend')}}/assets/js/custom.js"></script>
-   
-<script  type="text/javascript">
+<!--jquery library js-->
+    <script src="{{asset('frontend')}}/js/jquery-3.6.0.min.js"></script>
+    <!--bootstrap js-->
+    <script src="{{asset('backend')}}/assets/modules/bootstrap/js/bootstrap.min.js"></script>
+        <!--font-awesome js-->
+    <script src="{{asset('frontend')}}/js/Font-Awesome.js"></script>
+    <!--select2 js-->
+    <script src="{{asset('frontend')}}/js/select2.min.js"></script>
+
+    <script src="{{asset('frontend')}}/js/main.js"></script>
+
+    <!--slick slider js-->
+    <script src="{{asset('frontend')}}/js/slick.min.js"></script>
+    <!--simplyCountdown js-->
+    <script src="{{asset('frontend')}}/js/simplyCountdown.js"></script>
+    <!--product zoomer js-->
+    <script src="{{asset('frontend')}}/js/jquery.exzoom.js"></script>
+    <!--nice-number js-->
+    <script src="{{asset('frontend')}}/js/jquery.nice-number.min.js"></script>
+    <!--counter js-->
+    <script src="{{asset('frontend')}}/js/jquery.waypoints.min.js"></script>
+    <script src="{{asset('frontend')}}/js/jquery.countup.min.js"></script>
+    <!--add row js-->
+    <script src="{{asset('frontend')}}/js/add_row_custon.js"></script>
+    <!--multiple-image-video js-->
+    <script src="{{asset('frontend')}}/js/multiple-image-video.js"></script>
+    <!--sticky sidebar js-->
+    <script src="{{asset('frontend')}}/js/sticky_sidebar.js"></script>
+    <!--price ranger js-->
+    <script src="{{asset('frontend')}}/js/ranger_jquery-ui.min.js"></script>
+    <script src="{{asset('frontend')}}/js/ranger_slider.js"></script>
+    <!--isotope js-->
+    <script src="{{asset('frontend')}}/js/isotope.pkgd.min.js"></script>
+    <!--venobox js-->
+    <script src="{{asset('frontend')}}/js/venobox.min.js"></script>
+    <!--classycountdown js-->
+    <script src="{{asset('frontend')}}/js/jquery.classycountdown.js"></script>
+
+    <script src="{{asset('backend')}}/assets/modules/summernote/summernote-bs4.js"></script>
+
+    <script>
+      $('.summernote').summernote({
+        tabsize: 2,
+        height: 150
+      });
+    </script>
