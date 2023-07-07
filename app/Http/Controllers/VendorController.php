@@ -7,11 +7,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\updatepassword;
 use App\Traits\updateprofile;
+use App\Traits\updateshopprofile;
 
 class VendorController extends Controller
 {
     use updateprofile;
     use updatepassword;
+    use updateshopprofile;
    
     /**
      * Display a listing of the resource.
@@ -95,5 +97,14 @@ class VendorController extends Controller
         toastr()->success('Password updated successfully');
         return redirect('/vendor/login');
         } 
+
+        public function updateshop(Request $request ,  Vendor $vendor_profile)
+        {
+            $credentials = $this->updateshopprofiledata($request,   $vendor_profile);
+            $vendor_profile->update($credentials);
+            return redirect('/vendor/shopprofile');
+        }
+
+    
 
 }

@@ -41,7 +41,7 @@ Route::resource('/admin/vendor-profile',AdminVendorProfileController::class);
 
 Route::resource('/admin/product',ProductController::class);
 Route::post('/admin/update_product_status/{product}', [ProductController::class, 'updatestatus']);
-
+Route::get('admin/seller-product',[ProductController::class,'index'])->name('sellers-products');
 
 
 Route::get('/admin/productimage/{product}',[ProductimageController::class , 'index']);

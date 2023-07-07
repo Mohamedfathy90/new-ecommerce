@@ -138,12 +138,34 @@ order: [[0, 'desc']]
 });
 
 
-// Products Table 
+// admin Products Table 
 var producttable = $('#product-table').DataTable({
 stateSave: true,
 processing: true,
 serverSide: true,
 ajax: "/admin/product",
+columns: [
+{data: 'DT_RowIndex', name: '', orderable: false, searchable: false},
+{ data: 'thumbnail', name: 'thumbnail'},
+{ data: 'name', name: 'name'},
+{ data: 'vendor_id', name: 'vendor_id'},
+{ data: 'brand_id', name: 'brand_id'},
+{ data: 'category_id', name: 'category_id'},
+{ data: 'price', name: 'price'},
+{ data: 'type', name: 'type'},
+{ data: 'qty', name: 'qty'},
+{ data: 'status', name: 'status'},
+{data: 'action', name: 'action', orderable: false , width:'200'},
+],
+order: [[0, 'desc']]
+});
+
+// Seller Products Table 
+var sellerproducttable = $('#sellerproduct-table').DataTable({
+stateSave: true,
+processing: true,
+serverSide: true,
+ajax: "/admin/seller-product",
 columns: [
 {data: 'DT_RowIndex', name: '', orderable: false, searchable: false},
 { data: 'thumbnail', name: 'thumbnail'},

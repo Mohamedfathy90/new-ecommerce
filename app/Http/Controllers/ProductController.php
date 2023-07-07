@@ -14,6 +14,7 @@ use App\Traits\status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\Rule;
 use Yoeunes\Toastr\Facades\Toastr;
 
@@ -28,8 +29,21 @@ class ProductController extends Controller
 
     public function index()
     {
+        $route = Route::current()->getName();
+       
+        
+        if($route ===  "product.index")
+        {
+            $products=product::where('vendor_id',auth()->user()->vendor->id)->get();
+        }
+        else
+        {
+            $products=product::where('vendor_id','!=',auth()->user()->vendor->id)->get();
+        }
+        
         if(request()->ajax()) {
-            return datatables()->of(product::all())
+                        
+            return datatables()->of($products)
             
             ->addColumn('vendor_id', function($row){
                return Vendor::findorfail($row['vendor_id'])->user->name ;
@@ -89,7 +103,17 @@ class ProductController extends Controller
             ->addIndexColumn()
             ->make(true);
             } 
-      return view('admin.product.index');
+      
+            if(auth()->user()->role=='admin'){
+                if($route ===  "product.index")
+                return view('admin.product.index');
+                if($route ===  "sellers-products")
+                return view('admin.product.seller_products');
+             }
+        
+             elseif(auth()->user()->role=='vendor')
+                 return view('vendor.product.index');
+  
     
     }
 

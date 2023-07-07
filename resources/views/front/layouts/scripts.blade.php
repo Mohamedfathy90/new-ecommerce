@@ -10,10 +10,8 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
-<!--jquery library js-->
-    <script src="{{asset('frontend')}}/js/jquery-3.6.0.min.js"></script>
-    <!--bootstrap js-->
-    <script src="{{asset('backend')}}/assets/modules/bootstrap/js/bootstrap.min.js"></script>
+
+   
         <!--font-awesome js-->
     <script src="{{asset('frontend')}}/js/Font-Awesome.js"></script>
     <!--select2 js-->
@@ -50,9 +48,37 @@
 
     <script src="{{asset('backend')}}/assets/modules/summernote/summernote-bs4.js"></script>
 
+  
+    
+    
     <script>
       $('.summernote').summernote({
         tabsize: 2,
         height: 150
       });
     </script>
+
+
+<script type="text/javascript">
+// Products Table 
+var producttable = $('#product-table').DataTable({
+stateSave: true,
+processing: true,
+serverSide: true,
+ajax: "/vendor/product",
+columns: [
+{data: 'DT_RowIndex', name: '', orderable: false, searchable: false},
+{ data: 'thumbnail', name: 'thumbnail'},
+{ data: 'name', name: 'name'},
+{ data: 'vendor_id', name: 'vendor_id'},
+{ data: 'brand_id', name: 'brand_id'},
+{ data: 'category_id', name: 'category_id'},
+{ data: 'price', name: 'price'},
+{ data: 'type', name: 'type'},
+{ data: 'qty', name: 'qty'},
+{ data: 'status', name: 'status'},
+{data: 'action', name: 'action', orderable: false , width:'200'},
+],
+order: [[0, 'desc']]
+});
+</script>

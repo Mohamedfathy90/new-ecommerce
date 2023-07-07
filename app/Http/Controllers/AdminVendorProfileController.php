@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Vendor;
 use App\Traits\image;
+use App\Traits\updateshopprofile;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class AdminVendorProfileController extends Controller
 {
     use image;
-    
+    use updateshopprofile;
     /**
      * Display a listing of the resource.
      */
@@ -55,27 +56,9 @@ class AdminVendorProfileController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request , Vendor $vendor_profile)
+    public function update(Request $request ,  Vendor $vendor_profile)
     {
-        $credentials = $request->validate([
-            'image'         => ['image' , 'max:2048'] ,
-            'name'          => ['required' , Rule::unique('vendors')->ignore($vendor_profile->id)] ,
-            'email'         => ['required' , Rule::unique('vendors')->ignore($vendor_profile->id)] , 
-            'address'       => ['required' , 'string'] , 
-            'description'   => ['required' , 'string'] , 
-            'phone'         => ['required','numeric'] , 
-            'fb_link'       => ['url','nullable'] ,
-            'tw_link'       => ['url','nullable'] ,
-            'inst_link'     => ['url','nullable'] ,
-        ]);
-
-        if ($request->has('image')){
-            $this->deleteimage($vendor_profile->image);
-            $credentials['image']=$this->saveimage('vendor_banners');
-        }
-        else{
-            unset($credentials['image']);
-        }
+        $credentials = $this->updateshopprofiledata($request,   $vendor_profile);
         $vendor_profile->update($credentials);
         return redirect('/admin/vendor-profile');
     }

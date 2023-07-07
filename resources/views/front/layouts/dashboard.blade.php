@@ -42,6 +42,7 @@
           <li><a class="active" href="/{{auth()->user()->role}}/dashboard"><i class="fas fa-tachometer"></i>Dashboard</a></li>
           <li><a href="/{{auth()->user()->role}}/profile"><i class="far fa-user"></i> My Profile</a></li>
           <li><a href="/vendor/shopprofile"><i class="fas fa-shopping-cart"></i> My Shop</a></li>
+          <li><a href="/vendor/product"><i class="fas fa-shopping-cart"></i> Products</a></li>
           <li><a href="dsahboard_order.html"><i class="fas fa-list-ul"></i> Orders</a></li>
           <li><form method="POST" action="{{ route('logout') }}">
                 @csrf

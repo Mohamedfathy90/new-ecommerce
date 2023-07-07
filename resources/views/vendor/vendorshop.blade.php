@@ -11,12 +11,12 @@
             <div class="card">
               <div class="card-body">
 
-                    <form action="" method="post" enctype="multipart/form-data">
+                    <form action="/vendor/update-shop-profile/{{$vendor->id}}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('patch')
                     <div class="form-group">
                         <label>Preview</label>
-                        <img src="{{$vendor->banner}}" width="200">
+                        <img src="{{$vendor->image}}" width="200">
                     </div>
                     
                     <div class="form-group mt-4">
