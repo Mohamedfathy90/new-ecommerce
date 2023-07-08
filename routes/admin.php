@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminVendorProfileController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChildCategoryController;
+use App\Http\Controllers\FlashsaleController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductimageController;
 use App\Http\Controllers\ProductvariantController;
@@ -42,6 +43,8 @@ Route::resource('/admin/vendor-profile',AdminVendorProfileController::class);
 Route::resource('/admin/product',ProductController::class);
 Route::post('/admin/update_product_status/{product}', [ProductController::class, 'updatestatus']);
 Route::get('admin/seller-product',[ProductController::class,'index'])->name('sellers-products');
+Route::get('admin/pending-product',[ProductController::class,'index'])->name('pending-products');
+Route::post('/admin/update_product_approval/{product}', [ProductController::class, 'updateapproval']);
 
 
 Route::get('/admin/productimage/{product}',[ProductimageController::class , 'index']);
@@ -67,3 +70,6 @@ Route::get('/admin/variantitem/{variantitem}/edit',[VariantitemController::class
 Route::patch('/admin/variantitem/{variantitem}',[VariantitemController::class , 'update']);
 Route::delete('/admin/variantitem/{variantitem}',[VariantitemController::class , 'destroy']);
 Route::post('/admin/update_variantitem_status/{variantitem}', [VariantitemController::class, 'updatestatus']);
+
+
+Route::resource('/admin/flashsale',FlashsaleController::class);

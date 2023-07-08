@@ -31,6 +31,7 @@
                 <li><a class="dropdown-item" href="/admin/brand">Brands</a></li>
                 <li><a class="dropdown-item" href="/admin/product">Admin Products</a></li>
                 <li><a class="dropdown-item" href="/admin/seller-product">Sellers Products</a></li>
+                <li><a class="dropdown-item" href="/admin/pending-product">Pending Products</a></li>
               </ul>
               </li>
             
@@ -45,6 +46,7 @@
               <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Manage Website</span></a>
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="/admin/slider">Homepage Slider</a></li>
+                <li><a class="dropdown-item" href="/admin/flashsale">Flash Sale</a></li>
               </ul>
               </li>
               

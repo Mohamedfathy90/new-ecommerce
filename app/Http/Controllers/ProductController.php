@@ -29,18 +29,32 @@ class ProductController extends Controller
 
     public function index()
     {
-        $route = Route::current()->getName();
-       
+        $GLOBALS['route'] = Route::current()->getName();    
         
-        if($route ===  "product.index")
-        {
+        switch($GLOBALS['route']){
+            
+            case "product.index" :
             $products=product::where('vendor_id',auth()->user()->vendor->id)->get();
+            $GLOBALS['table']="product";
+            break;    
+            
+            case "sellers-products" :
+            $products=product::where([
+                ['vendor_id','!=',auth()->user()->vendor->id] , 
+                ['is_approved','yes']
+                ])->get();
+            $GLOBALS['table']="sellerproduct";
+            break;
+            
+            case "pending-products" :
+            $products=product::where([
+                ['vendor_id','!=',auth()->user()->vendor->id] , 
+                ['is_approved','pending']
+                ])->get();
+            $GLOBALS['table']="pendingproduct";
+            break;
         }
-        else
-        {
-            $products=product::where('vendor_id','!=',auth()->user()->vendor->id)->get();
-        }
-        
+   
         if(request()->ajax()) {
                         
             return datatables()->of($products)
@@ -60,11 +74,11 @@ class ProductController extends Controller
             ->addColumn('type', function($row){
                 return '<span class="badge badge-warning">'.$row['type'].'</span> ';
                     })
-
-            
             ->addColumn('action', function($row){
             $actionBtn = '<a href= "/admin/product/'.$row['id'].'/edit"   class="edit btn btn-success">Edit</a> <a href="javascript:void(0)" 
-            class="delete btn btn-danger show_confirm" data-table="product" data-url="/admin/product/'.$row['id'].'"
+            class="delete btn btn-danger show_confirm" 
+            data-table='.$GLOBALS['table'].'
+            data-url="/admin/product/'.$row['id'].'"
             data-text="Are You Sure you want to permenantly delete this product?">Delete</a> 
             <div class="dropdown d-inline show">
             <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -83,7 +97,8 @@ class ProductController extends Controller
                 if($row['status']==='active'){
                 return '<label class="custom-switch">
                 <input type="radio" value="1" class="custom-switch-input change-status" 
-                 data-table="product" data-url="/admin/update_product_status/'.$row['id'].'" checked="">
+                 data-table='.$GLOBALS['table'].'
+                 data-url="/admin/update_product_status/'.$row['id'].'" checked="">
                 <span class="custom-switch-indicator"></span>
                 <span class="custom-switch-description">Active</span>
                 </label>';
@@ -92,25 +107,48 @@ class ProductController extends Controller
                 if($row['status']==='inactive'){
                 return '<label class="custom-switch">
                 <input type="radio" value="1" class="custom-switch-input change-status" 
-                data-table="product" data-url="/admin/update_product_status/'.$row['id'].'">
+                data-table='.$GLOBALS['table'].'  
+                data-url="/admin/update_product_status/'.$row['id'].'">
                 <span class="custom-switch-indicator"></span>
                 <span class="custom-switch-description">Inactive</span>  
                 </label>';
                 }
-                
             })
-            ->rawColumns(['thumbnail','action','type','status'])
+                ->addColumn('is_approved', function($row){
+                    if($row['is_approved']==='pending'){
+                    return '<label class="custom-switch">
+                    <input type="radio" value="1" class="custom-switch-input change-approval" 
+                     data-table='.$GLOBALS['table'].'
+                     data-url="/admin/update_product_approval/'.$row['id'].'">
+                    <span class="custom-switch-indicator"></span>
+                    <span class="custom-switch-description">Pending</span>
+                    </label>';
+                    }
+                    if($row['is_approved']==='yes'){
+                    return '<label class="custom-switch">
+                    <input type="radio" value="1" class="custom-switch-input change-approval" 
+                     data-table='.$GLOBALS['table'].'
+                     data-url="/admin/update_product_approval/'.$row['id'].'" checked="">
+                    <span class="custom-switch-indicator"></span>
+                    <span class="custom-switch-description">Approved</span>
+                    </label>';
+                    }
+            })
+            ->rawColumns(['thumbnail','action','type','status','is_approved'])
             ->addIndexColumn()
             ->make(true);
             } 
       
             if(auth()->user()->role=='admin'){
-                if($route ===  "product.index")
-                return view('admin.product.index');
-                if($route ===  "sellers-products")
-                return view('admin.product.seller_products');
+                switch($GLOBALS['route']){
+                    case "product.index" :
+                        return view('admin.product.index');
+                    case "sellers-products" :
+                        return view('admin.product.seller_products');
+                    case "pending-products" :
+                        return view('admin.product.pending_products'); 
              }
-        
+            }
              elseif(auth()->user()->role=='vendor')
                  return view('vendor.product.index');
   
@@ -205,7 +243,7 @@ class ProductController extends Controller
         
         $product->update($credentials);
         Toastr()->success('Product has been updated successfully');
-        return redirect('/admin/product');
+        return redirect (($product->vendor_id == auth()->id()) ? "/admin/product" : "/admin/seller-product");
     }
 
     /**
@@ -223,6 +261,18 @@ class ProductController extends Controller
         
         $this->changestatus($product);
         
+    }
+
+    public function updateapproval(Product $product){
+        
+        if($product->is_approved === 'pending'){
+        $product->update(['is_approved' => 'yes']);
+        return response(['status'=>'success' , 'message'=>"Status has been updated!"]);
+        }
+        if($product->is_approved === 'yes'){
+        $product->update(['is_approved' => 'pending']);
+        return response(['status'=>'success' , 'message'=>"Status has been updated!"]);
+        }
     }
     
 }

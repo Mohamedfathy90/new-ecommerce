@@ -32,6 +32,7 @@
                     <th>Type</th>
                     <th>Available Qty</th>
                     <th>status</th>
+                    <th>approve</th>
                     <th>Action</th>
                     </tr>
                     </thead>

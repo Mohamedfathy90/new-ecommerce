@@ -12,6 +12,7 @@
 <!-- General JS Scripts -->
   <!-- <script src="{{asset('backend')}}/assets/modules/jquery.min.js"></script> -->
   <script src="{{asset('backend')}}/assets/modules/popper.js"></script>
+  <script src="{{asset('backend')}}/assets/modules/select2/dist/js/select2.min.js"></script>
   <script src="{{asset('backend')}}/assets/modules/tooltip.js"></script>
   <script src="{{asset('backend')}}/assets/modules/bootstrap/js/bootstrap.min.js"></script>
   <script src="{{asset('backend')}}/assets/modules/nicescroll/jquery.nicescroll.min.js"></script>
@@ -155,6 +156,7 @@ columns: [
 { data: 'type', name: 'type'},
 { data: 'qty', name: 'qty'},
 { data: 'status', name: 'status'},
+{ data: 'is_approved', name: 'is_approved'},
 {data: 'action', name: 'action', orderable: false , width:'200'},
 ],
 order: [[0, 'desc']]
@@ -176,6 +178,31 @@ columns: [
 { data: 'price', name: 'price'},
 { data: 'type', name: 'type'},
 { data: 'qty', name: 'qty'},
+{ data: 'status', name: 'status'},
+{ data: 'is_approved', name: 'is_approved'},
+{data: 'action', name: 'action', orderable: false , width:'300'},
+],
+order: [[0, 'desc']]
+});
+
+
+// pending Products Table 
+var pendingproducttable = $('#pendingproduct-table').DataTable({
+stateSave: true,
+processing: true,
+serverSide: true,
+ajax: "/admin/pending-product",
+columns: [
+{data: 'DT_RowIndex', name: '', orderable: false, searchable: false},
+{ data: 'thumbnail', name: 'thumbnail'},
+{ data: 'name', name: 'name'},
+{ data: 'vendor_id', name: 'vendor_id'},
+{ data: 'brand_id', name: 'brand_id'},
+{ data: 'category_id', name: 'category_id'},
+{ data: 'price', name: 'price'},
+{ data: 'type', name: 'type'},
+{ data: 'qty', name: 'qty'},
+{ data: 'is_approved', name: 'is_approved'},
 { data: 'status', name: 'status'},
 {data: 'action', name: 'action', orderable: false , width:'200'},
 ],
@@ -282,6 +309,12 @@ $(document).on('click','.show_confirm',function (event){
       case "product":
       producttable.ajax.reload(); 
       break;
+      case "sellerproduct":
+      sellerproducttable.ajax.reload(); 
+      break;
+      case "pendingproduct":
+      pendingproducttable.ajax.reload(); 
+      break;
       case "productimage":
       productimagetable.ajax.reload(); 
       break;
@@ -372,6 +405,12 @@ $(document).on('click','.change-status',function (event){
       case "product":
       producttable.ajax.reload(); 
       break;
+      case "sellerproduct":
+      sellerproducttable.ajax.reload(); 
+      break;
+      case "pendingproduct":
+      pendingproducttable.ajax.reload(); 
+      break;
       case "productvariant":
       productvarianttable.ajax.reload(); 
       break;
@@ -384,6 +423,33 @@ $(document).on('click','.change-status',function (event){
 })
 </script>
 
+// update approval using toggle button
+<script>
+$(document).on('click','.change-approval',function (event){
+  var requestURL   = $(this).data('url');
+  var requesttable = $(this).data('table')
+  $.ajax({
+      headers:{
+			'x-csrf-token':$('meta[name="csrf-token"]').attr('content')
+			},
+      url  : requestURL ,
+      type : "POST" , 
+    success : function() {
+      switch (requesttable) {
+      case "product":
+      producttable.ajax.reload(); 
+      break;
+      case "sellerproduct":
+      sellerproducttable.ajax.reload(); 
+      break;
+      case "pendingproduct":
+      pendingproducttable.ajax.reload(); 
+      break;
+    }
+    } 
+  });
+})
+</script>
 
 <script>
       $('.summernote').summernote({
