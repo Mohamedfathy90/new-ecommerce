@@ -44,7 +44,7 @@
                 <div class="col-xl-12">
                     <div class="offer_time" style="background: url(/frontend/images/flash_sell_bg.jpg)">
                         <div class="wsus__flash_coundown">
-                            <span class=" end_text">flash sell</span>
+                            <span class=" end_text">Flash Sale</span>
                             <div class="simply-countdown simply-countdown-one"></div>
                             <a class="common_btn" href="#">see more <i class="fas fa-caret-right"></i></a>
                         </div>
@@ -206,7 +206,18 @@
     <!--============================
         FLASH SELL END
     ==============================-->
-
+    @push('scripts')
+    <script>
+    $(document).ready(function(){
+    simplyCountdown('.simply-countdown-one', {
+    year  : {{date('Y',strtotime($flashsale->end_date))}},
+    month : {{date('m',strtotime($flashsale->end_date))}},
+    day   : {{date('d',strtotime($flashsale->end_date))}},
+    enableUtc: true
+    });
+    })
+    </script>
+    @endpush
 
     <!--============================
        MONTHLY TOP PRODUCT START
@@ -1972,3 +1983,5 @@
     ==============================-->
 
     @endsection
+    
+    

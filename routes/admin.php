@@ -73,3 +73,4 @@ Route::post('/admin/update_variantitem_status/{variantitem}', [VariantitemContro
 
 
 Route::resource('/admin/flashsale',FlashsaleController::class);
+Route::post('/admin/add-flashsale-item', [FlashsaleController::class, 'additem']);

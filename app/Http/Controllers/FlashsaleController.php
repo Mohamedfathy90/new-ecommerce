@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Flashsale;
+use App\Models\Flashsale_item;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Yoeunes\Toastr\Facades\Toastr;
 
@@ -13,7 +15,31 @@ class FlashsaleController extends Controller
      */
     public function index()
     {
-        return view('admin.flashsale.index');
+        if(request()->ajax()) {
+                        
+            return datatables()->of(Flashsale_item::all())
+            
+            ->addColumn('product_id', function($row){
+               $product=Product::findorfail($row['product_id']);
+               return '<a href="/admin/product/'.$row['product_id'].'/edit">'.$product->name.'</a>' ;
+            })
+       
+            ->addColumn('action', function($row){
+            $actionBtn = '<a href="javascript:void(0)" class="delete btn btn-danger show_confirm" data-table="flashsale_items"
+            data-url="/admin/flashsale/'.$row['id'].'"
+            data-text="Are You Sure you want to permenantly delete this product?">Delete</a> ';
+            return $actionBtn;
+            })
+            
+   
+            ->rawColumns(['product_id','action'])
+            ->addIndexColumn()
+            ->make(true);
+            } 
+        
+        return view('admin.flashsale.index',['products'=>Product::where([
+            ['status','active'] , ['is_approved','yes']
+        ])->get()]);
     }
 
     /**
@@ -67,8 +93,18 @@ class FlashsaleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Flashsale $flashsale)
+    public function destroy(Flashsale_item $flashsale)
     {
-        //
+       $flashsale->delete();
+        return response(['status'=>'success' , 'message'=>"Product has been deleted!"]);
+    }
+
+    public function additem(Request $request){
+        $product= $request->validate([
+            'product_id'=>['required','unique:flashsale_items,product_id']
+        ]);
+        Flashsale_item::create($product);
+        Toastr()->success('Flash Sale added successfully');
+        return redirect('/admin/flashsale');
     }
 }

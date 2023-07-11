@@ -32,22 +32,24 @@
                 <h4>Add Flash Sale Products</h4>
                 </div>
                 <div class="card-body">  
-                  <form action="" method="post">
+                  <form action="/admin/add-flashsale-item" method="post">
                     @csrf
                     <div class="form-group">
-                    <select class='form-control select2' type="text" name="product">
-                        <option></option>
+                    <select class='form-control select2' type="text" name="product_id">
+                      @foreach($products as $product)  
+                      <option value="{{$product->id}}">{{$product->name}}</option>
+                      @endforeach
                     </select> 
                     </div>
                     <button class="btn btn-primary" type="submit">Save</button>
                   </form>
                  </div>
                   <div class="card-body">
-                  <table class="table table-bordered" id="productimage-table" >
+                  <table class="table table-bordered" id="flashsale-table" >
                     <thead>
                     <tr>
                     <th>No.</th>
-                    <th>Image</th>
+                    <th>Product</th>
                     <th>Action</th>
                     </tr>
                     </thead>

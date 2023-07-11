@@ -262,6 +262,22 @@ order: [[0, 'desc']]
 });
 
 
+// Flashsale Items Table 
+var flashsaleitemtable = $('#flashsale-table').DataTable({
+stateSave: true,
+processing: true,
+serverSide: true,
+ajax: "/admin/flashsale",
+columns: [
+{data: 'DT_RowIndex', name: '', orderable: false, searchable: false},
+{ data: 'product_id', name: 'product_id'},
+{data: 'action', name: 'action', orderable: false , width:'200'},
+],
+order: [[0, 'desc']]
+});
+
+
+
 // delete action
 $(document).on('click','.show_confirm',function (event){
 	event.preventDefault();
@@ -323,6 +339,9 @@ $(document).on('click','.show_confirm',function (event){
       break;
       case "variantitem":
       variantitemtable.ajax.reload(); 
+      break;
+      case "flashsale_items":
+      flashsaleitemtable.ajax.reload(); 
       break;
     }
     }

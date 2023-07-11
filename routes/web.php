@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Models\Category;
+use App\Models\Flashsale;
 use App\Models\Slider;
 use Illuminate\Support\Facades\Route;
 
@@ -18,7 +19,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('front.home',['sliders'=>Slider::where('status','active')->orderby('order')->get()]);
+    return view('front.home',['sliders'=>Slider::where('status','active')->orderby('order')->get() , 
+                              'flashsale'=>Flashsale::find(1)
+]);
 });
 
 Route::get('/user/dashboard', function () {

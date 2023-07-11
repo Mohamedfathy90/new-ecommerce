@@ -82,3 +82,5 @@ columns: [
 order: [[0, 'desc']]
 });
 </script>
+
+@stack('scripts')
