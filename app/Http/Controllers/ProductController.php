@@ -274,6 +274,10 @@ class ProductController extends Controller
         return response(['status'=>'success' , 'message'=>"Status has been updated!"]);
         }
     }
+
+    public function show_product_details(Product $product){
+        return view('front.product_details',['product'=>$product->load(['productimage','productvariant','brand'])]);
+    }
     
 }
 

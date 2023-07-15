@@ -12,13 +12,19 @@
 
 
    
-        <!--font-awesome js-->
-    <script src="{{asset('frontend')}}/js/Font-Awesome.js"></script>
+ 
+
+     <!--jquery library js-->
+     <script src="{{asset('frontend')}}/js/jquery-3.6.0.min.js"></script>
+    <!--bootstrap js-->
+    <script src="{{asset('frontend')}}/js/bootstrap.bundle.min.js"></script>
+    <!--font-awesome js-->
+       <!--font-awesome js-->
+       <script src="{{asset('frontend')}}/js/Font-Awesome.js"></script>
     <!--select2 js-->
     <script src="{{asset('frontend')}}/js/select2.min.js"></script>
 
     <script src="{{asset('frontend')}}/js/main.js"></script>
-
     <!--slick slider js-->
     <script src="{{asset('frontend')}}/js/slick.min.js"></script>
     <!--simplyCountdown js-->
