@@ -73,7 +73,7 @@
                                             <li><a href="#"><i class="fab fa-google"></i></a></li>
                                             <li><a href="/auth/facebook"><i class="fab fa-facebook-f"></i></a></li>
                                             <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                            <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                            <li><a href="/auth/github"><i class="fab fa-github"></i></a></li>
                                         </ul>
 
                                         <span>doesnot have an account? , </span><a class="forget_p" href="/register">Register</a> 
