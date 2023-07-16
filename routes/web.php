@@ -45,7 +45,7 @@ Route::middleware('auth')->group(function () {
 
 Route::controller(FacebookController::class)->group(function(){
     Route::get('/auth/facebook', 'redirectToFacebook')->name('auth.facebook');
-    Route::get('auth/facebook/callback', 'handleFacebookCallback');
+    Route::get('/auth/facebook/callback', 'handleFacebookCallback');
 });
 
 Route::controller(GithubController::class)->group(function(){
