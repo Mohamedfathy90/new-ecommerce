@@ -70,10 +70,10 @@
                                         <button class="common_btn" type="submit">login</button>
                                         <p class="social_text">Sign in with social account</p>
                                         <ul class="wsus__login_link mb-4">
-                                            <li><a href="#"><i class="fab fa-google"></i></a></li>
-                                            <li><a href="/auth/facebook"><i class="fab fa-facebook-f"></i></a></li>
-                                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                            <li><a href="/auth/github"><i class="fab fa-github"></i></a></li>
+                                            <li><a href="/auth/google" title="Google"><i class="fab fa-google"></i></a></li>
+                                            <li><a href="/auth/facebook" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                                            <li><a href="#" title="Twitter"><i class="fab fa-twitter"></i></a></li>
+                                            <li><a href="/auth/github" title="Github"><i class="fab fa-github"></i></a></li>
                                         </ul>
 
                                         <span>doesnot have an account? , </span><a class="forget_p" href="/register">Register</a> 

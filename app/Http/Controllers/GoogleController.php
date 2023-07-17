@@ -8,11 +8,11 @@ use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class GithubController extends Controller
+class GoogleController extends Controller
 {
-    public function redirectToGithub()
+    public function redirectToGoogle()
     {
-        return Socialite::driver('github')->redirect();
+        return Socialite::driver('google')->redirect();
     }
            
     /**
@@ -20,13 +20,14 @@ class GithubController extends Controller
      *
      * @return void
      */
-    public function handleGithubCallback()
+    public function handleGoogleCallback()
     {
         try {
         
-            $user = Socialite::driver('github')->stateless()->user();
-           
-            $finduser = User::where('github_id', $user->id)->first();
+            $user = Socialite::driver('google')->stateless()->user();
+            
+             dd($user);
+            $finduser = User::where('google_id', $user->id)->first();
          
             if($finduser){
          
@@ -38,9 +39,9 @@ class GithubController extends Controller
                 $newUser = User::updateOrCreate(['email' => $user->email],[
                         'name' => $user->name,
                         'email' => $user->email,
-                        'username' => $user->nickname,
-                        'image' => $user->avatar,
-                        'github_id'=> $user->id,
+                        'username' => $user->name,
+                        'image' => $user->avatar_original . "&access_token={$user->token}",
+                        'facebook_id'=> $user->id,
                         'password' => encrypt('123456dummy')
                     ]);
         
