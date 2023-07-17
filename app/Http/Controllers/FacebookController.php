@@ -24,7 +24,7 @@ class FacebookController extends Controller
     {
         try {
         
-            $user = Socialite::driver('facebook')->user();
+            $user = Socialite::driver('facebook')->stateless()->user();
          
             dd($user);
             
