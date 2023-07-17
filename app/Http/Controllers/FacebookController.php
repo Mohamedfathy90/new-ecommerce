@@ -25,9 +25,8 @@ class FacebookController extends Controller
         try {
         
             $user = Socialite::driver('facebook')->stateless()->user();
-         
-            dd($user);
             
+            // dd($user);
             $finduser = User::where('facebook_id', $user->id)->first();
          
             if($finduser){
@@ -39,6 +38,9 @@ class FacebookController extends Controller
             }else{
                 $newUser = User::updateOrCreate(['email' => $user->email],[
                         'name' => $user->name,
+                        'email' => $user->email,
+                        'username' => $user->name,
+                        'image' => $user->avatar_original . "&access_token={$user->token}",
                         'facebook_id'=> $user->id,
                         'password' => encrypt('123456dummy')
                     ]);
